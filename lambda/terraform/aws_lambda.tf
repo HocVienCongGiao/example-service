@@ -26,20 +26,20 @@ EOF
 
 data "aws_s3_bucket_object" "bean-exampleservice-test2" {
   bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  key    = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test2.zip"
+  key    = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
 }
 
 data "aws_s3_bucket_object" "bean-exampleservice-test1" {
   bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  key    = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test1.zip"
+  key    = "dev-sg-hocvienconggiao/example-service/latest/test1.zip"
 }
 
 resource "aws_lambda_function" "bean-exampleservice-test2" {
   s3_bucket     = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test2.zip"
+  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
   function_name = "exampleservice-test2"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "exampleservice-test1"
+  handler       = "test2"
   timeout       = 12
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
@@ -66,10 +66,10 @@ resource "aws_lambda_function" "bean-exampleservice-test2" {
 
 resource "aws_lambda_function" "bean-exampleservice-test1" {
   s3_bucket     = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test1.zip"
+  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/test1.zip"
   function_name = "exampleservice-test1"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "exampleservice-test1"
+  handler       = "test1"
   timeout       = 12
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
