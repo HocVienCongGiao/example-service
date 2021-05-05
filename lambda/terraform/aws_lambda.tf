@@ -3,7 +3,7 @@
 Each Lambda function must have an associated IAM role which dictates what access it has to other AWS services. 
 */
 resource "aws_iam_role" "iam_for_lambda" {
-  name = "iam_for_lambda_testing"
+  name = "iam_for_lambda_example-service"
 
   assume_role_policy = <<EOF
 {
@@ -24,28 +24,28 @@ resource "aws_iam_role" "iam_for_lambda" {
 EOF
 }
 
-data "aws_s3_bucket_object" "bean-test2" {
+data "aws_s3_bucket_object" "bean-exampleservice-test2" {
   bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  key    = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
+  key    = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test2.zip"
 }
 
-data "aws_s3_bucket_object" "bean-test1" {
+data "aws_s3_bucket_object" "bean-exampleservice-test1" {
   bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  key    = "dev-sg-hocvienconggiao/example-service/latest/test1.zip"
+  key    = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test1.zip"
 }
 
-resource "aws_lambda_function" "bean-test2" {
+resource "aws_lambda_function" "bean-exampleservice-test2" {
   s3_bucket     = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
-  function_name = "test2"
+  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test2.zip"
+  function_name = "exampleservice-test2"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "test1"
+  handler       = "exampleservice-test1"
   timeout       = 12
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
   # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  source_code_hash = base64sha256(data.aws_s3_bucket_object.bean-test2.last_modified)
+  source_code_hash = base64sha256(data.aws_s3_bucket_object.bean-exampleservice-test2.last_modified)
 
   runtime = "provided"
 
@@ -60,22 +60,22 @@ resource "aws_lambda_function" "bean-test2" {
   # When creating or updating Lambda functions, mount target must be in 'available' lifecycle state.
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
-    aws_cloudwatch_log_group.bean-test2
+    aws_cloudwatch_log_group.bean-exampleservice-test2
   ]
 }
 
-resource "aws_lambda_function" "bean-test1" {
+resource "aws_lambda_function" "bean-exampleservice-test1" {
   s3_bucket     = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
-  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/test1.zip"
-  function_name = "test1"
+  s3_key        = "dev-sg-hocvienconggiao/example-service/latest/exampleservice-test1.zip"
+  function_name = "exampleservice-test1"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "test1"
+  handler       = "exampleservice-test1"
   timeout       = 12
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
   # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
-  source_code_hash = base64sha256(data.aws_s3_bucket_object.bean-test1.last_modified)
+  source_code_hash = base64sha256(data.aws_s3_bucket_object.bean-exampleservice-test1.last_modified)
 
   runtime = "provided"
 
@@ -90,24 +90,24 @@ resource "aws_lambda_function" "bean-test1" {
   # When creating or updating Lambda functions, mount target must be in 'available' lifecycle state.
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
-    aws_cloudwatch_log_group.bean-test1
+    aws_cloudwatch_log_group.bean-exampleservice-test1
   ]
 }
 
 # This is to optionally manage the CloudWatch Log Group for the Lambda Function.
 # If skipping this resource configuration, also add "logs:CreateLogGroup" to the IAM policy below.
-resource "aws_cloudwatch_log_group" "bean-test2" {
-  name              = "/aws/lambda/test2" # Should be the same as function name
+resource "aws_cloudwatch_log_group" "bean-exampleservice-test2" {
+  name              = "/aws/lambda/exampleservice-test2" # Should be the same as function name
   retention_in_days = 14
 }
-resource "aws_cloudwatch_log_group" "bean-test1" {
-  name              = "/aws/lambda/test1" # Should be the same as function name
+resource "aws_cloudwatch_log_group" "bean-exampleservice-test1" {
+  name              = "/aws/lambda/exampleservice-test1" # Should be the same as function name
   retention_in_days = 14
 }
 
 # See also the following AWS managed policy: AWSLambdaBasicExecutionRole
 resource "aws_iam_policy" "lambda_logging" {
-  name        = "lambda_logging_testing"
+  name        = "lambda_logging_example-service"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
