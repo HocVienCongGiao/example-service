@@ -2,7 +2,7 @@ variable "service_name" {}
 
 variable "aws_region" {
   type    = string
-  default = "us-west-2"
+  default = "ap-southeast-1"
 }
 
 variable "aws_access_key_id" {}
