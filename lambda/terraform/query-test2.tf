@@ -4,19 +4,19 @@ All incoming requests to API Gateway must match with a configured resource and m
 Append the following to define a single proxy resource:
 */
 resource "aws_api_gateway_resource" "exampleservice-test2-query-api-proxy" {
-  rest_api_id = aws_api_gateway_rest_api.query-api.id
+  rest_api_id = data.aws_api_gateway_rest_api.query-api.id
   parent_id   = aws_api_gateway_resource.exampleservice-query-api-proxy.id
   path_part   = "test2"
 }
 resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
-  rest_api_id   = aws_api_gateway_rest_api.query-api.id
+  rest_api_id   = data.aws_api_gateway_rest_api.query-api.id
   resource_id   = aws_api_gateway_resource.exampleservice-test2-query-api-proxy.id
   http_method   = "ANY"
   authorization = "NONE"
 }
 
   resource "aws_api_gateway_integration" "exampleservice-test2-query-api" {
-  rest_api_id = aws_api_gateway_rest_api.query-api.id
+  rest_api_id = data.aws_api_gateway_rest_api.query-api.id
   resource_id = aws_api_gateway_method.exampleservice-test2-query-api-proxy.resource_id
   http_method = aws_api_gateway_method.exampleservice-test2-query-api-proxy.http_method
 
@@ -34,7 +34,7 @@ resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
 
   # The "/*/*" portion grants access from any method on any resource
   # within the API Gateway REST API.
-  source_arn = "${aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
+  source_arn = "${data.aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
 } 
 
 data "aws_s3_bucket_object" "exampleservice-test2" {
