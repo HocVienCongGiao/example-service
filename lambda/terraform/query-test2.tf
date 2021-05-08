@@ -69,7 +69,7 @@ resource "aws_lambda_function" "exampleservice-test2-query-api" {
   # When creating or updating Lambda functions, mount target must be in 'available' lifecycle state.
   depends_on = [
     aws_iam_role_policy_attachment.lambda_logs,
-    aws_cloudwatch_log_group.exampleservice-test2
+    aws_cloudwatch_log_group.exampleservice-test2-query-api
   ]
 }
 
