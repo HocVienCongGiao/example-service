@@ -75,7 +75,7 @@ resource "aws_lambda_function" "exampleservice-test2-query-api" {
 
 # This is to optionally manage the CloudWatch Log Group for the Lambda Function.
 # If skipping this resource configuration, also add "logs:CreateLogGroup" to the IAM policy below.
-resource "aws_cloudwatch_log_group" "exampleservice-test2" {
-  name              = "/aws/lambda/exampleservice-test2" # Should be the same as function name
+resource "aws_cloudwatch_log_group" "exampleservice-test2-query-api" {
+  name              = "/aws/lambda/exampleservice-test2-query-api" # Should be the same as function name
   retention_in_days = 14
 }
