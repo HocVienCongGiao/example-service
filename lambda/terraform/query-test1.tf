@@ -12,6 +12,12 @@ resource "aws_lambda_function" "exampleservice-test1-query-api" {
   handler       = "test1"
   timeout       = 12
 
+  vpc_config {
+    # Every subnet should be able to reach an EFS mount target in the same Availability Zone. Cross-AZ mounts are not permitted.
+    subnet_ids         = [data.terraform_remote_state.vpc.outputs.vpc_private_subnet_ids]
+    security_group_ids = "sg-0f2acf7a4973e5d4c"
+  }
+
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
   # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
