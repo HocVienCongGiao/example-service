@@ -1,0 +1,8 @@
+[package]
+name = "persistence"
+version = "0.1.5"
+edition = "2018"
+
+[dependencies]
+postgres = "0.18.1"
+domain = { path = "../domain" }

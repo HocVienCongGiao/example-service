@@ -328,6 +328,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "domain"
+version = "0.1.0"
+
+[[package]]
 name = "dtoa"
 version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1135,6 +1139,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 name = "postgres"
 version = "0.1.5"
 dependencies = [
+ "domain 0.1.0",
  "lambda_http 0.2.0-beta.1 (git+https://github.com/awslabs/aws-lambda-rust-runtime/)",
  "postgres 0.18.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 1.0.56 (registry+https://github.com/rust-lang/crates.io-index)",
