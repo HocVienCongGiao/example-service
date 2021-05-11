@@ -3,18 +3,30 @@ extern crate rusoto_dynamodb;
 
 use std::default::Default;
 
-use rusoto_core::{Region, HttpClient, Client, RusotoError};
+use rusoto_core::{Region, Client};
 use rusoto_dynamodb::{DynamoDb, DynamoDbClient, ListTablesInput};
 use rusoto_s3::{S3, S3Client};
-use rusoto_cognito_idp::{CognitoIdentityProviderClient, CognitoIdentityProvider, AdminCreateUserRequest, UserType, ListUsersResponse, ListUsersError, ListUsersRequest};
-use rusoto_credential::{ProfileProvider};
+use rusoto_cognito_idp::{CognitoIdentityProviderClient, CognitoIdentityProvider, ListUsersRequest};
+// use rusoto_credential::{ProfileProvider};
+// https://docs.rs/rusoto_cognito_idp/0.46.0/rusoto_cognito_idp/
+use lambda_http::{handler, lambda, Context, IntoResponse, Request};
+use serde_json::json;
 
-fn main() {
-    let dispatcher = HttpClient::new().expect("failed to create request dispatcher");
-    let default_provider_result = ProfileProvider::new();
-    let mut default_provider = default_provider_result.unwrap();
-    default_provider.set_profile("hvcg");
-    let aws_client = Client::new_with(default_provider, dispatcher);
+type Error = Box<dyn std::error::Error + Sync + Send + 'static>;
+
+#[tokio::main]
+async fn main() -> Result<(), Error> {
+    lambda::run(handler(cognito)).await?;
+    Ok(())
+}
+
+async fn cognito(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
+    // let dispatcher = HttpClient::new().expect("failed to create request dispatcher");
+    // let default_provider_result = ProfileProvider::new();
+    // let mut default_provider = default_provider_result.unwrap();
+    // default_provider.set_profile("hvcg");
+    // let aws_client = Client::new_with(default_provider, dispatcher);
+    let aws_client = Client::shared();
 
     let rusoto_cognito_idp_client = CognitoIdentityProviderClient::new_with_client(aws_client.clone(), Region::ApSoutheast1);
     // let create_user_request = AdminCreateUserRequest {
@@ -86,5 +98,29 @@ fn main() {
         Err(error) => {
             println!("Error: {:?}", error);
         }
+    }
+
+// creating an application/json response
+    Ok(json!({
+"message": "Hey cognito!"
+}))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn cognito_handles() {
+        let request = Request::default();
+        let expected = json!({
+        "message": "Hey cognito!"
+        })
+            .into_response();
+        let response = cognito(request, Context::default())
+            .await
+            .expect("expected Ok(_) value")
+            .into_response();
+        assert_eq!(response.body(), expected.body())
     }
 }
