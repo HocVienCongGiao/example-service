@@ -79,19 +79,6 @@ resource "aws_iam_role" "iam_for_lambda" {
       "Sid": ""
     }
   ]
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:CreateNetworkInterface",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeInstances",
-        "ec2:AttachNetworkInterface"
-      ],
-      "Resource": "*"
-    }
-  ]
 }
 EOF
 }
@@ -116,6 +103,17 @@ resource "aws_iam_policy" "lambda_logging" {
       "Effect": "Allow"
     }
   ]
+  statement {
+    actions = [
+      "ec2:DescribeNetworkInterfaces",
+        "ec2:CreateNetworkInterface",
+        "ec2:DeleteNetworkInterface",
+        "ec2:DescribeInstances",
+        "ec2:AttachNetworkInterface"
+    ]
+
+    resources = ["*"]
+  }
 }
 EOF
 }
