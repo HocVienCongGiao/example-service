@@ -110,7 +110,7 @@ resource "aws_iam_policy" "lambda_logging" {
         "ec2:DescribeInstances",
         "ec2:AttachNetworkInterface"
       ],
-      "Resource": "*"
+      "Resource": "*",
       "Effect": "Allow"
     }
   ]
