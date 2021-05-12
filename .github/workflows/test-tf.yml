@@ -1,4 +1,4 @@
-name: Build and Push
+name: Deploy TF skipping Test
 
 on:
   push:
@@ -13,6 +13,9 @@ jobs:
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Deploy Terraform Config 
         run: |
           chmod +x ./scripts/terraform-enterprise-push.sh
