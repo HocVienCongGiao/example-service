@@ -81,7 +81,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   ]
   statement {
     actions = [
-      "ec2:DescribeNetworkInterfaces",
+      "ec2:DescribeNetworkInterface",
       "ec2:CreateNetworkInterface",
       "ec2:DeleteNetworkInterface",
       "ec2:DescribeInstances",
