@@ -16,7 +16,7 @@ resource "aws_lambda_function" "exampleservice-test1-query-api" {
     # Every subnet should be able to reach an EFS mount target in the same Availability Zone. Cross-AZ mounts are not permitted.
     # subnet_ids         = [data.aws_subnet_ids.lambda.ids]
     subnet_ids         = ["subnet-02385ede395c1f51a", "subnet-0e6dd749246d5c65d", "subnet-00777fd51e0927323"]
-    security_group_ids = ["sg-0f2acf7a4973e5d4c", " "]
+    security_group_ids = ["sg-0f2acf7a4973e5d4c"]
   }
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
