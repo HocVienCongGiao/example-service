@@ -101,7 +101,7 @@ resource "aws_iam_policy" "lambda_logging" {
       ],
       "Resource": "arn:aws:logs:*:*:*",
       "Effect": "Allow"
-    }
+    },
     {
       "Action": [
         "ec2:DescribeNetworkInterfaces",
