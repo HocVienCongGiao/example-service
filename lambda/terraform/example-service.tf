@@ -102,18 +102,18 @@ resource "aws_iam_policy" "lambda_logging" {
       "Resource": "arn:aws:logs:*:*:*",
       "Effect": "Allow"
     }
-  ]
-  statement {
-    actions = [
-      "ec2:DescribeNetworkInterfaces",
+    {
+      "Action": [
+        "ec2:DescribeNetworkInterfaces",
         "ec2:CreateNetworkInterface",
         "ec2:DeleteNetworkInterface",
         "ec2:DescribeInstances",
         "ec2:AttachNetworkInterface"
-    ]
-
-    resources = ["*"]
-  }
+      ],
+      "Resource": "*"
+      "Effect": "Allow",
+    }
+  ]
 }
 EOF
 }
