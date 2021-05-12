@@ -103,19 +103,6 @@ resource "aws_iam_policy" "lambda_logging" {
       "Effect": "Allow"
     }
   ]
-  "Statement": [
-    {
-      "Action": [
-        "ec2:DescribeNetworkInterfaces",
-        "ec2:CreateNetworkInterface",
-        "ec2:DeleteNetworkInterface",
-        "ec2:DescribeInstances",
-        "ec2:AttachNetworkInterface"
-      ],
-      "Resource": "arn:aws:logs:*:*:*",
-      "Effect": "Allow"
-    }
-  ]
 }
 EOF
 }
