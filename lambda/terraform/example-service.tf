@@ -79,6 +79,7 @@ resource "aws_iam_role" "iam_for_lambda" {
       "Sid": ""
     },
     {
+      "Sid": "",
       "Effect": "Allow",
       "Action": [
         "ec2:DescribeNetworkInterfaces",
