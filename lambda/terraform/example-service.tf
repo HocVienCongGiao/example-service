@@ -101,6 +101,62 @@ resource "aws_iam_policy" "lambda_logging" {
       ],
       "Resource": "arn:aws:logs:*:*:*",
       "Effect": "Allow"
+    },
+    {
+      "Sid": "EnforceVPCFunction",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "Null": {
+           "lambda:VpcIds": "true"
+        }
+      }
+    },
+    {
+      "Sid": "EnforceStayInSpecificVpc",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Allow",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+            "lambda:VpcIds": ["vpc-0dd804c41a5fd5084", " "]
+        }
+      }
+    },
+    {
+      "Sid": "EnforceOutOfSubnet",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Deny",
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringEquals": {
+            "lambda:SubnetIds": ["subnet-02385ede395c1f51a", "subnet-0e6dd749246d5c65d", "subnet-00777fd51e0927323"]
+        }
+      }
+    },
+    {
+      "Sid": "EnforceOutOfSecurityGroups",
+      "Action": [
+          "lambda:CreateFunction",
+          "lambda:UpdateFunctionConfiguration"
+       ],
+      "Effect": "Deny",
+      "Resource": "*",
+      "Condition": {
+        "ForAnyValue:StringEquals": {
+            "lambda:SecurityGroupIds": ["sg-0f2acf7a4973e5d4c", " "]
+        }
+      }
     }
   ]
 }
