@@ -12,14 +12,14 @@ data "aws_api_gateway_rest_api" "query-api" {
 #   }
 # }
 
-data "aws_vpcs" "lambda" {
-  tags = {
-    name = "dev-sg-lambda-apps-hvcg-vpc"
-  }
-}
+# data "aws_vpcs" "lambda" {
+#   tags = {
+#     name = "dev-sg-lambda-apps-hvcg-vpc"
+#   }
+# }
 
 data "aws_subnet_ids" "private" {
-  vpc_id = data.aws_vpcs.lambda.ids
+  vpc_id = "vpc-0dd804c41a5fd5084"
   filter {
     name   = "tag:type"
     values = ["private"]
