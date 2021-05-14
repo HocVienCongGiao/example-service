@@ -15,7 +15,7 @@ resource "aws_lambda_function" "exampleservice-test1-query-api" {
   vpc_config {
     # Every subnet should be able to reach an EFS mount target in the same Availability Zone. Cross-AZ mounts are not permitted.
     # subnet_ids         = [data.aws_subnet_ids.lambda.ids]
-    subnet_ids         = [data.aws_subnet.test.id]
+    subnet_ids         = [data.aws_subnet.test[each.key]]
     security_group_ids = var.sg_id
   }
 
