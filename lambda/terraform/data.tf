@@ -19,7 +19,7 @@ data "aws_vpcs" "lambda-vpc" {
 }
 
 data "aws_subnet_ids" "private-subnet-id" {
-  vpc_id = data.aws_vpcs.lambda.ids
+  vpc_id = data.aws_vpcs.lambda-pvc.ids
   filter {
     name   = "tag:type"
     values = ["private"]
