@@ -10,11 +10,17 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn test1(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
+    let pet = hvcg_example_openapi_entity::models::Pet {
+        id: None,
+        category: None,
+        name: "123".to_string(),
+        photo_urls: vec![],
+        tags: None,
+        status: None,
+    };
     // `serde_json::Values` impl `IntoResponse` by default
     // creating an application/json response
-    Ok(json!({
-    "message": "Test 1 is me, how are you?"
-    }))
+    Ok(json!(pet))
 }
 
 #[cfg(test)]
@@ -25,7 +31,7 @@ mod tests {
     async fn test1_handles() {
         let request = Request::default();
         let expected = json!({
-        "message": "Test 1 is me, how are you?"
+        "name":"123","photoUrls":[]
         })
         .into_response();
         let response = test1(request, Context::default())
