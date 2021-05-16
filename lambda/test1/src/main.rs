@@ -10,6 +10,7 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn test1(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
+    controller::openapi::test1::createTest1();
     let pet = hvcg_example_openapi_entity::models::Pet {
         id: None,
         category: None,

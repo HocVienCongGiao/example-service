@@ -225,6 +225,13 @@ version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
+name = "controller"
+version = "0.1.5"
+dependencies = [
+ "domain 0.1.0",
+]
+
+[[package]]
 name = "core-foundation"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -368,6 +375,10 @@ dependencies = [
  "redox_users 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.3.9 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "domain"
+version = "0.1.0"
 
 [[package]]
 name = "dtoa"
@@ -2221,6 +2232,7 @@ dependencies = [
 name = "test1"
 version = "0.1.5"
 dependencies = [
+ "controller 0.1.5",
  "hvcg_example_openapi_entity 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "lambda_http 0.2.0-beta.1 (git+https://github.com/awslabs/aws-lambda-rust-runtime/)",
  "serde_json 1.0.56 (registry+https://github.com/rust-lang/crates.io-index)",

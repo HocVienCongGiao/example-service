@@ -1,0 +1,2 @@
+[workspace]
+members = ["domain", "db_postgres", "controller", "presenter"]
