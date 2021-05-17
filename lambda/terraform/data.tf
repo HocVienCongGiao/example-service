@@ -25,7 +25,7 @@ data "aws_subnet_ids" "private" {
     values = ["private"]
   }
 }
-data "aws_subnet" "test" {
-  for_each = data.aws_subnet_ids.private.ids
-  id       = each.value
-}
+# data "aws_subnet" "test" {
+#   for_each = data.aws_subnet_ids.private.ids
+#   id       = each.value
+# }
