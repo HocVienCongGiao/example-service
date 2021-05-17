@@ -10,10 +10,14 @@ mod embedded {
 async fn main() -> Result<(), Error> {
     println!("Start of main()");
     // connect to the DB
-    let (mut client, connection) =
-        tokio_postgres::connect("postgresql://postgres:p%40ssword@localhost/test", NoTls).await?;
-    // let mut obj = db_pool.get().await?;
-    // let client_refinery = obj.deref_mut().deref_mut();
+    let (mut client, connection) = tokio_postgres::connect(
+        "postgresql://postgres:password@localhost:6543/database_name",
+        //         tokio_postgres::connect("postgresql://postgres:password@localhost/test", NoTls).await?;
+        NoTls,
+    )
+    .await?; // p%40ssword
+             // let mut obj = db_pool.get().await?;
+             // let client_refinery = obj.deref_mut().deref_mut();
     test_func();
     // The connection object performs the actual communication with the database,
     // so spawn it off to run on its own.
@@ -58,12 +62,91 @@ async fn main() -> Result<(), Error> {
 #[cfg(test)]
 mod tests {
     use crate::main;
+    use pg_embed::fetch;
+    use pg_embed::fetch::{Architecture, FetchSettings, OperationSystem, PG_V13};
+    use pg_embed::postgres::{PgEmbed, PgSettings};
+    use std::time::Duration;
+
+    async fn init_embedded_postgres() -> PgEmbed {
+        /// Postgresql settings
+        let pg_settings = PgSettings {
+            /// Where to store the postgresql executables
+            executables_dir: "data/postgres".to_string(),
+            /// Where to store the postgresql database
+            database_dir: "data/db".to_string(),
+            port: 6543,
+            user: "postgres".to_string(),
+            password: "password".to_string(),
+            /// If persistent is false clean up files and directories on drop, otherwise keep them
+            persistent: false,
+            start_timeout: Duration::from_secs(15),
+            /// If migration sql scripts need to be run, the directory containing those scripts can be
+            /// specified here with `Some(path_to_dir), otherwise `None` to run no migrations.
+            /// To enable migrations view the **Usage** section for details
+            migration_dir: None,
+        };
+
+        /// Postgresql binaries download settings
+        let fetch_settings = FetchSettings {
+            host: "https://repo1.maven.org".to_string(),
+            operating_system: OperationSystem::Windows,
+            architecture: Architecture::Amd64,
+            version: PG_V13,
+        };
+
+        /// Create a new instance
+        let mut pg = PgEmbed::new(pg_settings, fetch_settings);
+
+        // async block only to show that these methods need to be executed in an async context
+        // async {
+        /// Download, unpack, create password file and database cluster
+        let is_setup = pg.setup().await;
+        println!("is_setup {:?}", is_setup);
+        /// start postgresql database
+        let started = pg.start_db().await;
+        println!("isStarted {:?}", started);
+
+        /// create a new database
+        /// to enable migrations view the **Usage** section for details
+        pg.create_database("database_name").await;
+
+        // /// drop a new database
+        // /// to enable migrations view [Usage] for details
+        // /// to enable migrations view the **Usage** section for details
+        // pg.drop_database("database_name").await;
+
+        /// check database existence
+        /// to enable migrations view [Usage] for details
+        /// to enable migrations view the **Usage** section for details
+        let exists = pg.database_exists("database_name").await;
+        println!("DB Exists? {:?}", exists);
+
+        // /// run migration sql scripts
+        // /// to enable migrations view [Usage] for details
+        // /// to enable migrations view the **Usage** section for details
+        // pg.migrate("database_name").await;
+        // };
+        /// get the base postgresql uri
+        /// `postgres://{username}:{password}@localhost:{port}`
+        let pg_uri: &str = &pg.db_uri;
+        println!("pg_uri is {}", pg_uri);
+        /// get a postgresql database uri
+        /// `postgres://{username}:{password}@localhost:{port}/{specified_database_name}`
+        let pg_db_uri: String = pg.full_db_uri("database_name");
+        println!("full_db_uri is {}", pg_db_uri);
+
+        // stop postgresql database
+        // pg.stop_db();
+        return pg;
+    }
 
     #[tokio::test]
     async fn it_works() {
         println!("Calling main()");
+        let mut pg = init_embedded_postgres().await;
         main().await.expect("Failing for no reason");
         println!("Finished main()");
         assert_eq!(2 + 2, 4);
+        pg.stop_db();
     }
 }
