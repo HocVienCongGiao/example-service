@@ -26,7 +26,7 @@ data "aws_vpcs" "lambda" {
 # }
 
 data "aws_subnet_ids" "private" {
-  vpc_id = data.aws_vpcs.lambda.ids
+  vpc_id = [data.aws_vpcs.lambda.ids]
   filter {
     name   = "tag:type"
     values = ["private"]
