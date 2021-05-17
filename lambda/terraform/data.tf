@@ -12,18 +12,18 @@ data "aws_api_gateway_rest_api" "query-api" {
 #   }
 # }
 
-# data "aws_vpcs" "lambda" {
-#   tags = {
-#     name = "dev-sg-lambda-apps-hvcg-vpc"
-#   }
-# }
-
 data "aws_vpcs" "lambda" {
-  filter {
-    name   = "tag:Name"
-    values = ["dev-sg-lambda-apps-hvcg-vpc"]
+  tags = {
+    Name = "dev-sg-lambda-apps-hvcg-vpc"
   }
 }
+
+# data "aws_vpcs" "lambda" {
+#   filter {
+#     name   = "tag:Name"
+#     values = ["dev-sg-lambda-apps-hvcg-vpc"]
+#   }
+# }
 
 data "aws_subnet_ids" "private" {
   vpc_id = data.aws_vpcs.lambda.id
