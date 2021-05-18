@@ -52,6 +52,9 @@ jobs:
       - 
         working-directory: lambda
         run: cargo fmt --all -- --check
+      -
+        working-directory: example-app
+        run: cargo fmt --all -- --check
 
   lint:
     runs-on: ubuntu-latest
@@ -66,6 +69,9 @@ jobs:
       - 
         working-directory: lambda      
         run: cargo clippy --all-targets -- -D clippy::all
+      -
+        working-directory: example-app
+        run: cargo clippy --all-targets -- -D clippy::all
 
   compile:
     runs-on: ubuntu-latest
@@ -78,7 +84,9 @@ jobs:
       - 
         working-directory: lambda      
         run: cargo check --all
-
+      -
+        working-directory: example-app
+        run: cargo check --all
   test:
     needs: [codestyle, lint, compile]
     runs-on: ubuntu-latest
@@ -87,9 +95,13 @@ jobs:
       uses: hecrj/setup-rust-action@v1
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Test
+    - name: Test lambda
       working-directory: lambda    
       run: cargo test
+    - name: Test components
+      working-directory: example-app
+      run: cargo test
+
   # deploy on pushes to master branch
   # assumes aws credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) are set in github secrets
   push_dev:
