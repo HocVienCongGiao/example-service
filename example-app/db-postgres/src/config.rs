@@ -17,7 +17,9 @@ impl Config {
     pub fn new() -> Config {
         let ostype_env_result = std::env::var("OSTYPE");
         let mut ostype: String = "windows".to_string();
-        let ostype_env_lowercase = ostype_env_result.unwrap_or_default().to_lowercase();
+        let ostype_env_lowercase = ostype_env_result
+            .unwrap_or_else(|_| String::from("windows"))
+            .to_lowercase();
         match &ostype_env_lowercase[0..5] {
             "linux" => {
                 ostype = String::from("linux");
