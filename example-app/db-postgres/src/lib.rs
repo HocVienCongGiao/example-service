@@ -1,5 +1,5 @@
 use domain::test_func;
-use tokio_postgres::types::ToSql;
+
 use tokio_postgres::{Error, NoTls};
 
 pub mod config;
@@ -35,7 +35,7 @@ async fn main() -> Result<(), Error> {
     // embedded::migrations::runner().run_async(&mut client);
     println!("finished migrations");
 
-    client
+    let _ = client
         .batch_execute(
             "
         CREATE TABLE IF NOT EXISTS author (
@@ -75,7 +75,7 @@ async fn main() -> Result<(), Error> {
     let row = result.unwrap();
     let author_name = row.get::<&str, &str>("name");
     println!("got row {}", author_name);
-    client.batch_execute(
+    let _ = client.batch_execute(
         "
         CREATE TABLE IF NOT EXISTS book  (
             id              SERIAL PRIMARY KEY,
@@ -96,7 +96,6 @@ mod tests {
     static INIT: Once = Once::new();
 
     pub fn initialise() {
-        let mut init = false;
         INIT.call_once(|| {
             dotenv::dotenv().ok();
             println!("testing env {}", std::env::var("HELLO").unwrap());
@@ -119,6 +118,6 @@ mod tests {
         println!("Finished main() in test 2");
         assert_eq!(2 + 2, 4);
         println!("finished test2");
-        pg.stop_db();
+        let _ = pg.stop_db();
     }
 }

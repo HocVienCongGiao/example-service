@@ -1,9 +1,7 @@
 pub struct Config {
-    pub(crate) db_user: Option<String>,
-    pub(crate) db_password: Option<Vec<u8>>,
-    pub(crate) db_name: Option<String>,
-    pub(crate) db_options: Option<String>,
-    pub(crate) application_name: Option<String>,
+    pub(crate) db_user: String,
+    pub(crate) db_password: String,
+    pub(crate) db_name: String,
     pub(crate) os_type: String,
 }
 
@@ -31,11 +29,9 @@ impl Config {
         }
 
         Config {
-            db_user: None,
-            db_password: None,
-            db_name: None,
-            db_options: None,
-            application_name: None,
+            db_user: "postgres".to_string(),
+            db_password: "password".to_string(),
+            db_name: "database_name".to_string(),
             os_type: ostype,
         }
     }
