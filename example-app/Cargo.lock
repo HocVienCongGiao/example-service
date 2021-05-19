@@ -1030,6 +1030,7 @@ dependencies = [
 name = "iam-cognito"
 version = "0.1.5"
 dependencies = [
+ "chrono",
  "domain",
  "rusoto_cognito_idp",
  "rusoto_core",

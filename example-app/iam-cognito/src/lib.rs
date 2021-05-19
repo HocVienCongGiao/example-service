@@ -1,5 +1,7 @@
+use chrono::prelude::*;
 use rusoto_cognito_idp::{
-    CognitoIdentityProvider, CognitoIdentityProviderClient, ListUsersRequest,
+    AdminCreateUserRequest, AdminDeleteUserRequest, CognitoIdentityProvider,
+    CognitoIdentityProviderClient, ListUsersRequest,
 };
 use rusoto_core::{Client, Region};
 
@@ -10,25 +12,30 @@ async fn cognito() {
     // default_provider.set_profile("hvcg");
     // let aws_client = Client::new_with(default_provider, dispatcher);
     let aws_client = Client::shared();
-
+    let user_pool_id = "ap-southeast-1_vmFHg7JIC".to_string();
     let rusoto_cognito_idp_client =
-        CognitoIdentityProviderClient::new_with_client(aws_client.clone(), Region::ApSoutheast1);
-    // let create_user_request = AdminCreateUserRequest {
-    //     desired_delivery_mediums: None,
-    //     force_alias_creation: None,
-    //     message_action: None,
-    //     temporary_password: None,
-    //     user_attributes: None,
-    //     user_pool_id: "".to_string(),
-    //     username: "".to_string(),
-    //     validation_data: None
-    // };
+        CognitoIdentityProviderClient::new_with_client(aws_client, Region::ApSoutheast1);
+    let test_username = "dev-test-user".to_string();
+    let admin_create_user_request = AdminCreateUserRequest {
+        desired_delivery_mediums: None,
+        force_alias_creation: None,
+        message_action: None,
+        temporary_password: None,
+        user_attributes: None,
+        user_pool_id: user_pool_id.clone(),
+        username: test_username.clone(),
+        validation_data: None,
+    };
+    let _ = rusoto_cognito_idp_client
+        .admin_create_user(admin_create_user_request)
+        .sync();
+
     let list_user_request = ListUsersRequest {
         attributes_to_get: None,
         filter: None,
         limit: None,
         pagination_token: None,
-        user_pool_id: "ap-southeast-1_vmFHg7JIC".to_string(),
+        user_pool_id: user_pool_id.clone(),
     };
     match rusoto_cognito_idp_client
         .list_users(list_user_request)
@@ -38,7 +45,22 @@ async fn cognito() {
             Some(user_types) => {
                 println!("User Type here");
                 for user_type in user_types {
-                    println!("{}", user_type.username.unwrap())
+                    let naive = NaiveDateTime::from_timestamp(
+                        user_type.user_create_date.unwrap() as i64,
+                        0,
+                    );
+
+                    // Create a normal DateTime from the NaiveDateTime
+                    let datetime: DateTime<Utc> = DateTime::from_utc(naive, Utc);
+
+                    // Format the datetime how you want
+                    let user_created_date = datetime.format("%Y-%m-%d %H:%M:%S");
+
+                    println!(
+                        "Username: {} - Created at: {:?}",
+                        user_type.username.unwrap(),
+                        user_created_date
+                    )
                 }
             }
             None => println!("No buckets in region!"),
@@ -47,13 +69,21 @@ async fn cognito() {
             println!("Error: {:?}", error);
         }
     }
+
+    let admin_delete_user_request = AdminDeleteUserRequest {
+        user_pool_id,
+        username: test_username,
+    };
+    let _ = rusoto_cognito_idp_client
+        .admin_delete_user(admin_delete_user_request)
+        .sync();
 }
 
 #[cfg(test)]
 mod tests {
 
     #[tokio::test]
-    async fn it_works() {
+    async fn crud_users() {
         crate::cognito().await;
         assert_eq!(2 + 2, 4);
     }
