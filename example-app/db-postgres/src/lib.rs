@@ -1,4 +1,3 @@
-use deadpool_postgres::{Manager, ManagerConfig, Pool, RecyclingMethod};
 use domain::test_func;
 use tokio_postgres::{Error, NoTls};
 
@@ -6,24 +5,6 @@ pub mod config;
 mod migration;
 pub mod test1_gateway;
 
-pub async fn create_connection_pool() -> Pool {
-    let config = crate::config::Config::new();
-    /////////////////////// HEY DEADPOOL
-    println!("deadpooling");
-    let mut pg_config = tokio_postgres::Config::new();
-    pg_config.host(config.db_host.as_str());
-    pg_config.user(config.db_user.as_str());
-    pg_config.dbname(config.db_name.as_str());
-    pg_config.password(config.db_password.as_str());
-    pg_config.port(config.db_port.parse::<u16>().unwrap());
-    let mgr_config = ManagerConfig {
-        recycling_method: RecyclingMethod::Fast,
-    };
-    let mgr = Manager::from_config(pg_config, NoTls, mgr_config);
-    let pool = Pool::new(mgr, 16);
-    println!("finished deadpooling");
-    pool
-}
 pub async fn main() -> Result<(), Error> {
     println!("Start of main............()");
     // connect to the DB
