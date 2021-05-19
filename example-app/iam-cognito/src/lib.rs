@@ -4,6 +4,7 @@ use rusoto_cognito_idp::{
     CognitoIdentityProviderClient, ListUsersRequest,
 };
 use rusoto_core::{Client, Region};
+use std::time::SystemTime;
 
 async fn cognito() {
     // let dispatcher = HttpClient::new().expect("failed to create request dispatcher");
@@ -15,7 +16,12 @@ async fn cognito() {
     let user_pool_id = "ap-southeast-1_vmFHg7JIC".to_string();
     let rusoto_cognito_idp_client =
         CognitoIdentityProviderClient::new_with_client(aws_client, Region::ApSoutheast1);
-    let test_username = "dev-test-user".to_string();
+
+    // Create a normal DateTime from the NaiveDateTime
+    let now_datetime: DateTime<Utc> = SystemTime::now().into();
+
+    let test_username =
+        "dev-test-user".to_string() + now_datetime.format("%H%M%S%f").to_string().as_str();
     let admin_create_user_request = AdminCreateUserRequest {
         desired_delivery_mediums: None,
         force_alias_creation: None,
