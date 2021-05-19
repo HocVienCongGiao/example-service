@@ -11,10 +11,13 @@ mod tests {
     use crate::boundaries::{
         Test1DbGateway, Test1SimpleMutationInputBoundary, Test1SimpleMutationRequest,
     };
+    use async_trait::async_trait;
 
     struct Test1DbGatewayStub {}
+
+    #[async_trait]
     impl Test1DbGateway for Test1DbGatewayStub {
-        fn exists_by_name(&self, name: String) -> bool {
+        async fn exists_by_name(&self, name: String) -> bool {
             if name == "existing" {
                 return true;
             }

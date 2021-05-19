@@ -1,5 +1,6 @@
 use crate::boundaries;
 use crate::boundaries::{Test1DbGateway, Test1SimpleMutationRequest, Test1SimpleMutationResponse};
+use futures::executor::block_on;
 
 pub struct Test1SimpleMutationInteractor {
     db_gateway: Box<dyn Test1DbGateway>,
@@ -8,7 +9,7 @@ pub struct Test1SimpleMutationInteractor {
 impl boundaries::Test1SimpleMutationInputBoundary for Test1SimpleMutationInteractor {
     fn create_test1(&self, request: Test1SimpleMutationRequest) -> Test1SimpleMutationResponse {
         println!("test1 simple mutation input boundary {}", request.name);
-        if (*self).db_gateway.exists_by_name(request.name.clone()) {
+        if block_on((*self).db_gateway.exists_by_name(request.name.clone())) {
             println!("user with this name already exists");
         } else {
             println!("new user, all is good");

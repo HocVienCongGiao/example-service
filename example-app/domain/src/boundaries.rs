@@ -1,3 +1,5 @@
+use async_trait::async_trait;
+
 pub trait Test1SimpleMutationInputBoundary {
     fn create_test1(&self, request: Test1SimpleMutationRequest) -> Test1SimpleMutationResponse;
 }
@@ -10,8 +12,9 @@ pub struct Test1SimpleMutationResponse {}
 
 pub trait MutationOutputBoundary {}
 
+#[async_trait]
 pub trait Test1DbGateway {
-    fn exists_by_name(&self, name: String) -> bool;
+    async fn exists_by_name(&self, name: String) -> bool;
 }
 
 // CommonUser

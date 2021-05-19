@@ -1,23 +1,18 @@
 use domain::test_func;
-use tokio_postgres::{Error, NoTls};
+use tokio_postgres::{Client, Error, NoTls};
 
 pub mod config;
 mod migration;
 pub mod test1_gateway;
-
-pub async fn main() -> Result<(), Error> {
-    println!("Start of main............()");
-    // connect to the DB
-    let (mut client, connection) = tokio_postgres::connect(
+pub async fn connect() -> Client {
+    let result = tokio_postgres::connect(
         "user=postgres password=password host=localhost port=6543 dbname=database_name",
         //         tokio_postgres::connect("postgresql://postgres:password@localhost/test", NoTls).await?;
         NoTls,
     )
-    .await?; // p%40ssword
-             // let mut obj = db_pool.get().await?;
-             // let client_refinery = obj.deref_mut().deref_mut();
-    println!("did we successfully get the client and conn?");
-    test_func();
+    .await;
+
+    let (client, connection) = result.unwrap();
     // The connection object performs the actual communication with the database,
     // so spawn it off to run on its own.
     tokio::spawn(async move {
@@ -25,6 +20,18 @@ pub async fn main() -> Result<(), Error> {
             eprintln!("connection error: {}", e);
         }
     });
+    client
+    // p%40ssword
+}
+
+pub async fn main(mut client: Client) -> Result<Client, Error> {
+    println!("Start of main............()");
+    // connect to the DB
+
+    // let mut obj = db_pool.get().await?;
+    // let client_refinery = obj.deref_mut().deref_mut();
+    println!("did we successfully get the client and conn?");
+    test_func();
     println!("start migrations");
     migration::migrations::runner()
         .run_async(&mut client)
@@ -82,7 +89,7 @@ pub async fn main() -> Result<(), Error> {
             )
     ",
     );
-    Ok(())
+    Ok(client)
 }
 
 #[cfg(test)]
