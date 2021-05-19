@@ -24,9 +24,10 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let test1_simple_mutator = crate::interactors::test1_mutation::Test1SimpleMutator::new(
-            Box::new(Test1DbGatewayStub {}),
-        );
+        let test1_simple_mutator =
+            crate::interactors::test1_mutation::Test1SimpleMutationInteractor::new(Box::new(
+                Test1DbGatewayStub {},
+            ));
         test1_simple_mutator.create_test1(Test1SimpleMutationRequest {
             name: "existing".to_string(),
         });
