@@ -1,15 +1,31 @@
+use deadpool_postgres::{Manager, ManagerConfig, Pool, RecyclingMethod};
 use domain::test_func;
-
 use tokio_postgres::{Error, NoTls};
 
 pub mod config;
-
-mod embedded;
 mod migration;
+pub mod test1_gateway;
 
-// #[tokio::main] // By default, tokio_postgres uses the tokio crate as its runtime.
-async fn main() -> Result<(), Error> {
-    println!("Start of main()");
+pub async fn create_connection_pool() -> Pool {
+    let config = crate::config::Config::new();
+    /////////////////////// HEY DEADPOOL
+    println!("deadpooling");
+    let mut pg_config = tokio_postgres::Config::new();
+    pg_config.host(config.db_host.as_str());
+    pg_config.user(config.db_user.as_str());
+    pg_config.dbname(config.db_name.as_str());
+    pg_config.password(config.db_password.as_str());
+    pg_config.port(config.db_port.parse::<u16>().unwrap());
+    let mgr_config = ManagerConfig {
+        recycling_method: RecyclingMethod::Fast,
+    };
+    let mgr = Manager::from_config(pg_config, NoTls, mgr_config);
+    let pool = Pool::new(mgr, 16);
+    println!("finished deadpooling");
+    pool
+}
+pub async fn main() -> Result<(), Error> {
+    println!("Start of main............()");
     // connect to the DB
     let (mut client, connection) = tokio_postgres::connect(
         "user=postgres password=password host=localhost port=6543 dbname=database_name",
@@ -19,6 +35,7 @@ async fn main() -> Result<(), Error> {
     .await?; // p%40ssword
              // let mut obj = db_pool.get().await?;
              // let client_refinery = obj.deref_mut().deref_mut();
+    println!("did we successfully get the client and conn?");
     test_func();
     // The connection object performs the actual communication with the database,
     // so spawn it off to run on its own.
@@ -84,20 +101,21 @@ async fn main() -> Result<(), Error> {
             )
     ",
     );
-
     Ok(())
 }
 
 #[cfg(test)]
 mod tests {
     use crate::main;
+    use std::path::PathBuf;
     use std::sync::Once;
 
     static INIT: Once = Once::new();
 
-    pub fn initialise() {
+    fn initialise() {
         INIT.call_once(|| {
-            dotenv::dotenv().ok();
+            let my_path = PathBuf::new().join(".env.test");
+            dotenv::from_path(my_path.as_path()).ok();
             println!("testing env {}", std::env::var("HELLO").unwrap());
         });
     }
@@ -107,17 +125,5 @@ mod tests {
         initialise();
         assert_eq!(2 + 2, 4);
         println!("finished test1");
-    }
-
-    #[tokio::test]
-    async fn db_tests() {
-        println!("start db_tests");
-        initialise();
-        let mut pg = crate::embedded::start_postgres().await;
-        main().await.expect("Failing for no reason");
-        println!("Finished main() in test 2");
-        assert_eq!(2 + 2, 4);
-        println!("finished test2");
-        let _ = pg.stop_db();
     }
 }

@@ -3,7 +3,7 @@ use pg_embed::postgres::{PgEmbed, PgSettings};
 use std::time::Duration;
 
 pub async fn start_postgres() -> PgEmbed {
-    let config = crate::config::Config::new();
+    let config = db_postgres::config::Config::new();
 
     // /// Postgresql settings
     let pg_settings = PgSettings {

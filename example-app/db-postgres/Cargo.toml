@@ -10,3 +10,4 @@ domain = { path = "../domain" }
 refinery = { version = "0.5", features = ["tokio-postgres"] }
 pg-embed = { version = "0.3" }
 dotenv = "0.15.0"
+deadpool-postgres = { version = "0.7", default-features = false }

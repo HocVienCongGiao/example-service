@@ -2,9 +2,9 @@ pub fn test_func() {
     println!("hello");
 }
 
-mod boundaries;
+pub mod boundaries;
 mod entity;
-mod interactors;
+pub mod interactors;
 
 #[cfg(test)]
 mod tests {

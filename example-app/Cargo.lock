@@ -464,10 +464,37 @@ dependencies = [
 name = "db-postgres"
 version = "0.1.5"
 dependencies = [
+ "deadpool-postgres",
  "domain",
  "dotenv",
  "pg-embed",
  "refinery",
+ "tokio 1.6.0",
+ "tokio-postgres",
+]
+
+[[package]]
+name = "deadpool"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d126179d86aee4556e54f5f3c6bf6d9884e7cc52cef82f77ee6f90a7747616d"
+dependencies = [
+ "async-trait",
+ "crossbeam-queue 0.3.1",
+ "num_cpus",
+ "tokio 1.6.0",
+]
+
+[[package]]
+name = "deadpool-postgres"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5452506f60a0ceca624c4becc948f9f0ae67f35fc0ae471b9dcb841d110cf70a"
+dependencies = [
+ "async-trait",
+ "deadpool",
+ "futures 0.3.15",
+ "log",
  "tokio 1.6.0",
  "tokio-postgres",
 ]
