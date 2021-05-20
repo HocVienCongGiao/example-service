@@ -12,11 +12,11 @@ pub struct Test1SimpleRepository {
 #[async_trait]
 impl domain::boundaries::Test1DbGateway for Test1SimpleRepository {
     async fn exists_by_name(&self, name: String) -> bool {
-        let stmt_future = (*self)
+        let stmt = (*self)
             .client
-            .prepare("SELECT * FROM author_initial WHERE name = $1");
-        println!("First block_on for stmt");
-        let stmt = stmt_future.await.unwrap();
+            .prepare("SELECT * FROM author_initial WHERE name = $1")
+            .await
+            .unwrap();
 
         // let stmt = block_on(stmt_future).unwrap();
         let name_param: &[&(dyn ToSql + Sync)] = &[&name];
