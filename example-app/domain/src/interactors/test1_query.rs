@@ -1,16 +1,20 @@
 use crate::boundaries;
 use crate::boundaries::{Test1DbGateway, Test1SimpleQueryRequest, Test1SimpleQueryResponse};
-use futures::executor::block_on;
+use async_trait::async_trait;
 
-pub struct Test1SimpleQueryInteractor {
-    db_gateway: Box<dyn Test1DbGateway>,
+pub struct Test1SimpleQueryInteractor<A: Test1DbGateway> {
+    db_gateway: A,
 }
 
-impl boundaries::Test1SimpleQueryInputBoundary for Test1SimpleQueryInteractor {
-    fn get_test1(&self, request: Test1SimpleQueryRequest) -> Test1SimpleQueryResponse {
+#[async_trait]
+impl<A> boundaries::Test1SimpleQueryInputBoundary for Test1SimpleQueryInteractor<A>
+where
+    A: Test1DbGateway + Sync + Send,
+{
+    async fn get_test1(&self, request: Test1SimpleQueryRequest) -> Test1SimpleQueryResponse {
         println!("test1 simple mutation input boundary {}", request.name);
         let status: u16;
-        if block_on((*self).db_gateway.exists_by_name(request.name.clone())) {
+        if ((*self).db_gateway.exists_by_name(request.name.clone())).await {
             println!("user found");
             status = 200;
         } else {
@@ -21,8 +25,11 @@ impl boundaries::Test1SimpleQueryInputBoundary for Test1SimpleQueryInteractor {
     }
 }
 
-impl Test1SimpleQueryInteractor {
-    pub fn new(db_gateway: Box<dyn Test1DbGateway>) -> Self {
+impl<A> Test1SimpleQueryInteractor<A>
+where
+    A: Test1DbGateway + Sync + Send,
+{
+    pub fn new(db_gateway: A) -> Self {
         Test1SimpleQueryInteractor { db_gateway }
     }
 }

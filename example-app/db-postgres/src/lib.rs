@@ -5,8 +5,14 @@ pub mod config;
 mod migration;
 pub mod test1_gateway;
 pub async fn connect() -> Client {
+    let config = config::Config::new();
+    println!("Connecting with config {:?}", config);
     let result = tokio_postgres::connect(
-        "user=postgres password=password host=localhost port=6543 dbname=database_name",
+        format!(
+            "user={} password={} host={} port={} dbname={}",
+            config.db_user, config.db_password, config.db_host, config.db_port, config.db_name
+        )
+        .as_str(),
         //         tokio_postgres::connect("postgresql://postgres:password@localhost/test", NoTls).await?;
         NoTls,
     )
@@ -23,7 +29,13 @@ pub async fn connect() -> Client {
     client
     // p%40ssword
 }
-
+pub async fn migrate(mut client: Client) -> Client {
+    migration::migrations::runner()
+        .run_async(&mut client)
+        .await
+        .expect("Hey why did I fail?");
+    client
+}
 pub async fn main(mut client: Client) -> Result<Client, Error> {
     println!("Start of main............()");
     // connect to the DB

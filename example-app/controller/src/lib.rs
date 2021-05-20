@@ -1,20 +1,22 @@
+use db_postgres::test1_gateway::Test1SimpleRepository;
 use domain::boundaries::{
-    Test1SimpleQueryInputBoundary, Test1SimpleQueryRequest, Test1SimpleQueryResponse,
+    Test1DbGateway, Test1SimpleQueryInputBoundary, Test1SimpleQueryRequest,
+    Test1SimpleQueryResponse,
 };
-use domain::test_func;
 
 pub mod openapi;
 
-pub fn get_test1() -> Test1SimpleQueryResponse {
+pub async fn get_test1() -> Test1SimpleQueryResponse {
     let client = db_postgres::connect().await;
-    let client = db_postgres::main(client).await.unwrap();
+    let client = db_postgres::migrate(client).await;
+
     let test1_repository = Test1SimpleRepository { client };
 
-    domain::interactors::test1_query::Test1SimpleQueryInteractor::new(test1_repository).get_test1(
-        Test1SimpleQueryRequest {
+    domain::interactors::test1_query::Test1SimpleQueryInteractor::new(test1_repository)
+        .get_test1(Test1SimpleQueryRequest {
             name: "Ngo Dinh Nhu".to_string(),
-        },
-    )
+        })
+        .await
 }
 
 #[cfg(test)]

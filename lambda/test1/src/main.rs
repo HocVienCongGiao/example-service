@@ -10,7 +10,7 @@ async fn main() -> Result<(), Error> {
 }
 
 async fn test1(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
-    controller::openapi::test1::createTest1();
+    controller::openapi::test1::create_test1();
     let pet = hvcg_example_openapi_entity::models::Pet {
         id: None,
         category: None,
@@ -27,9 +27,14 @@ async fn test1(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::path::PathBuf;
 
     #[tokio::test]
     async fn test1_handles() {
+        let my_path = PathBuf::new().join(".env.test");
+        dotenv::from_path(my_path.as_path()).ok();
+        let test = controller::get_test1().await;
+        println!("hello {}", test.status);
         let request = Request::default();
         let expected = json!({
         "name":"123","photoUrls":[]
