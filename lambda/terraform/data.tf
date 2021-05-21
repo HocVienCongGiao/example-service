@@ -36,3 +36,8 @@ data "aws_subnet_ids" "private" {
 #   for_each = data.aws_subnet_ids.private.ids
 #   id       = each.value
 # }
+data "aws_security_groups" "sg" {
+  tags = {
+    Name = "dev-sg-lambda-apps-hvcg-vpc"
+  }
+}
