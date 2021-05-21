@@ -17,14 +17,6 @@ data "aws_vpcs" "lambda" {
     Name = "dev-sg-lambda-apps-hvcg-vpc"
   }
 }
-
-# data "aws_vpcs" "lambda" {
-#   filter {
-#     name   = "tag:Name"
-#     values = ["dev-sg-lambda-apps-hvcg-vpc"]
-#   }
-# }
-
 data "aws_subnet_ids" "private" {
   vpc_id = tolist(data.aws_vpcs.lambda.ids)[0]
   filter {
@@ -32,10 +24,6 @@ data "aws_subnet_ids" "private" {
     values = ["private"]
   }
 }
-# data "aws_subnet" "test" {
-#   for_each = data.aws_subnet_ids.private.ids
-#   id       = each.value
-# }
 data "aws_security_groups" "sg" {
   filter {
     name   = "vpc-id"
