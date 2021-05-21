@@ -37,7 +37,8 @@ data "aws_subnet_ids" "private" {
 #   id       = each.value
 # }
 data "aws_security_groups" "sg" {
-  tags = {
-    Name = "dev-sg-lambda-apps-hvcg-vpc"
+  filter {
+    name   = "vpc-id"
+    values = tolist(data.aws_vpcs.lambda.ids)[0]
   }
 }
