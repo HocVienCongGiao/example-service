@@ -39,6 +39,6 @@ data "aws_subnet_ids" "private" {
 data "aws_security_groups" "sg" {
   filter {
     name   = "vpc-id"
-    values = tolist(data.aws_vpcs.lambda.ids)[0]
+    values = data.aws_subnet_ids.private.vpc_id
   }
 }
