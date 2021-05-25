@@ -1,7 +1,7 @@
 [package]
-name = "presenter"
+name = "example-presenter"
 version = "0.1.5"
 edition = "2018"
 
 [dependencies]
-domain = { path = "../domain" }
+domain = {package = "example-domain", path = "../domain" }

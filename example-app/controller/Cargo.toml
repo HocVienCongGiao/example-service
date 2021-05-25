@@ -1,9 +1,9 @@
 [package]
-name = "controller"
+name = "example-controller"
 version = "0.1.5"
 edition = "2018"
 
 [dependencies]
-domain = { path = "../domain" }
+domain = { package = "example-domain", path = "../domain" , version = "0.1.5"}
 tokio-postgres = "0.7.2"
-db-postgres = { path = "../../example-app/db-postgres" }
+db-postgres = { package = "example-db-postgres", path = "../db-postgres", version = "0.1.5" }

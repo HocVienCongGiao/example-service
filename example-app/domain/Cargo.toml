@@ -1,6 +1,6 @@
 [package]
-name = "domain"
-version = "0.1.0"
+name = "example-domain"
+version = "0.1.5"
 authors = ["peterbean410 <peterbean410@gmail.com>"]
 edition = "2018"
 
