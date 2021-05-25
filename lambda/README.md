@@ -93,3 +93,7 @@ $ npx serverless remove
 
 ## 👯 Contributing
 ***
+
+set SLS_DOCKER_ARGS=-v  D:\workspace\binhle\hvcg\example-service\example-app:/example-app
+https://www.jfrog.com/jira/browse/RTFACT-25926
+set CARGO_HOME= D:\workspace\binhle\hvcg\example-service\lambda\.cargo
