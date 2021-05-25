@@ -4,7 +4,7 @@ data "aws_s3_bucket_object" "exampleservice-test1-query-api" {
 }
 
 module "lamda-function-test1" {
-    source "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//platforms/lambda/apps/hvcg/api-gateway/bounded-context/example-service/lambda-function?ref=trigger"
+    source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//platforms/lambda/apps/hvcg/api-gateway/bounded-context/example-service/lambda-function?ref=trigger"
     statement_id = var.statement_id
     action       = var.action
     principal    = var.principal
