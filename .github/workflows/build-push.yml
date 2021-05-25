@@ -97,7 +97,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
-      SLS_DOCKER_ARGS: -v  ../example-app:/example-app
+      SLS_DOCKER_ARGS: -v  /home/runner/work/example-service/example-service/example-app:/example-app
     needs: [test]
     steps:
       - name: Set up Rust

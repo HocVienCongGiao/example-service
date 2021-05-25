@@ -72,3 +72,13 @@ functions:
 #      - http:
 #          path: /
 #          method: get
+
+custom:
+  rust:
+    dockerTag: '0.3.0-rust-1.45.0'
+    cargoFlags: ''
+    dockerImage: 'softprops/serverless-rust'
+# flags passed to 
+     # cargo cargoFlags: '--features enable-awesome' # custom docker tag dockerTag: 'some-custom-tag' # custom docker image dockerImage: 'dockerUser/dockerRepo'
+
+
