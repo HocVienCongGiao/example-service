@@ -16,16 +16,15 @@ impl Default for Config {
 
 impl Config {
     pub fn new() -> Config {
-        let ostype_env_result = std::env::var("OSTYPE");
-        let mut os_type: String = "windows".to_string();
-        let ostype_env_lowercase = ostype_env_result
-            .unwrap_or_else(|_| String::from("windows"))
-            .to_lowercase();
-        match &ostype_env_lowercase[0..5] {
+        // let os_test = std::env::var("OSTYPE").unwrap();
+        // println!("OK TSING {:?}", os_test);
+        let ostype_env = std::env::consts::OS.to_string();
+        let mut os_type = ostype_env.clone();
+        match &ostype_env[0..5] {
             "linux" => {
                 os_type = String::from("linux");
             }
-            "darwi" => {
+            "macos" => {
                 os_type = String::from("darwin");
             }
             _ => {}

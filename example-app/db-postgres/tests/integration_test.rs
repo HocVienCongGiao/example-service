@@ -33,6 +33,25 @@ async fn integration_works() {
     let _ = pg.stop_db();
 }
 
+#[tokio::test]
+async fn save_test() {
+    initialise();
+    println!("is it working?");
+    let mut pg: PgEmbed = common::embedded::start_postgres().await;
+    let client = db_postgres::connect().await;
+    let client = db_postgres::main(client).await.unwrap();
+    let test1_repository = Test1SimpleRepository { client };
+    let result = test1_repository.insert("NhutHuynh".parse().unwrap(), "HK".parse().unwrap())
+        .await;
+    println!("Is insert successfully {}", result);
+    let is_existing = test1_repository
+        .exists_by_name("NhutHuynh".to_string())
+        .await;
+    println!("is existing NhutHuynh is {}", is_existing);
+    println!("finished integration test");
+    let _ = pg.stop_db();
+}
+
 // #[tokio::test]
 // async fn db_tests() {
 //     println!("start db_tests");

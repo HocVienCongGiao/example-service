@@ -21,4 +21,13 @@ impl domain::boundaries::Test1DbGateway for Test1SimpleRepository {
         println!("ROW IS {}", name);
         name_found == name
     }
+
+    async fn insert(&self, name: String, country: String) -> bool {
+        let result = query::save(&(*self).client, name.clone(), country.clone()).await;
+        return if result.is_err() {
+            false
+        } else {
+            true
+        }
+    }
 }
