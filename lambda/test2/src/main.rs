@@ -13,7 +13,7 @@ async fn test2(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
     // `serde_json::Values` impl `IntoResponse` by default
     // creating an application/json response
     Ok(json!({
-    "message": "Test 2 is me, how are you?"
+    "message": "Test 222 is me, how are you?"
     }))
 }
 
@@ -25,7 +25,7 @@ mod tests {
     async fn test2_handles() {
         let request = Request::default();
         let expected = json!({
-        "message": "Test 2 is me, how are you?"
+        "message": "Test 222 is me, how are you?"
         })
         .into_response();
         let response = test2(request, Context::default())
