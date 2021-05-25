@@ -89,9 +89,6 @@ jobs:
     - name: Test lambda
       working-directory: lambda    
       run: cargo test
-    - name: Test components
-      working-directory: example-app
-      run: cargo test
 
   # deploy on pushes to master branch
   # assumes aws credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) are set in github secrets
