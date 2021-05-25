@@ -1,0 +1,22 @@
+name: Deploy TF skipping Test
+
+on:
+  push:
+    branches:
+      - update-role
+
+jobs:
+
+  push_dev:
+    if: github.ref == 'refs/heads/update-role'
+    runs-on: ubuntu-latest
+    env:
+      TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Deploy Terraform Config 
+        run: |
+          chmod +x ./scripts/terraform-enterprise-push.sh
+          ./scripts/terraform-enterprise-push.sh lambda/terraform HocVienCongGiao/dev-sg-lambda-services-hvcg-example-service

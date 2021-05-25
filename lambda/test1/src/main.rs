@@ -14,7 +14,7 @@ async fn test1(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
     let pet = hvcg_example_openapi_entity::models::Pet {
         id: None,
         category: None,
-        name: "123".to_string(),
+        name: "123 Test1 Update".to_string(),
         photo_urls: vec![],
         tags: None,
         status: None,
@@ -37,7 +37,7 @@ mod tests {
         println!("hello {}", test.status);
         let request = Request::default();
         let expected = json!({
-        "name":"123","photoUrls":[]
+        "name":"123 Test1 Update","photoUrls":[]
         })
         .into_response();
         let response = test1(request, Context::default())

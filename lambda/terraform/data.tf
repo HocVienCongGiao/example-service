@@ -11,3 +11,22 @@ data "aws_api_gateway_rest_api" "query-api" {
 #     }
 #   }
 # }
+
+data "aws_vpcs" "lambda" {
+  tags = {
+    Name = "dev-sg-lambda-apps-hvcg-vpc"
+  }
+}
+data "aws_subnet_ids" "private" {
+  vpc_id = tolist(data.aws_vpcs.lambda.ids)[0]
+  filter {
+    name   = "tag:type"
+    values = ["private"]
+  }
+}
+data "aws_security_groups" "sg" {
+  filter {
+    name   = "vpc-id"
+    values = tolist([data.aws_subnet_ids.private.vpc_id])
+  }
+}
