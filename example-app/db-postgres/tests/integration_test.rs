@@ -41,7 +41,8 @@ async fn save_test() {
     let client = db_postgres::connect().await;
     let client = db_postgres::main(client).await.unwrap();
     let test1_repository = Test1SimpleRepository { client };
-    let result = test1_repository.insert("NhutHuynh".parse().unwrap(), "HK".parse().unwrap())
+    let result = test1_repository
+        .insert("NhutHuynh".parse().unwrap(), "HK".parse().unwrap())
         .await;
     println!("Is insert successfully {}", result);
     let is_existing = test1_repository
