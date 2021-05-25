@@ -2,6 +2,7 @@
 name = "example-controller"
 version = "0.1.5"
 edition = "2018"
+publish = ["artifactory"]
 
 [dependencies]
 domain = { package = "example-domain", path = "../domain" , version = "0.1.5"}
