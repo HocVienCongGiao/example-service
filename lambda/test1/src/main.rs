@@ -34,7 +34,7 @@ mod tests {
         let my_path = PathBuf::new().join(".env.test");
         dotenv::from_path(my_path.as_path()).ok();
         // let test = controller::get_test1().await;
-        println!("hello {}", test.status);
+        // println!("hello {}", test.status);
         let request = Request::default();
         let expected = json!({
         "name":"123 Test1 Update","photoUrls":[]
