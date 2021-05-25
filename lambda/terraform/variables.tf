@@ -33,24 +33,32 @@ variable "api_key" {
 variable "tfe_token" {
   type = string
 }
-variable "private_subnet_id" {
-  description = "List of private subnet id"
 
-  default = [
-    "subnet-02385ede395c1f51a",
-    "subnet-0e6dd749246d5c65d", 
-    "subnet-00777fd51e0927323",
-  ]
-  type = list(string)
-
+variable "path_part_test1" {
+  type = string
+}
+variable "path_part_test2" {
+  type = string
 }
 
-variable "sg_id" {
-  description = "List of security group id"
-
-  default = [
-    "sg-0f2acf7a4973e5d4c",
-  ]
-  type = list(string)
-
+variable "http_method"{
+  type = string
+}
+variable "authorization" {
+  type = string
+}
+variable "integration_http_method" {
+  type = string
+}
+variable "type" {
+  type = string
+}
+variable "statement_id" {
+  type = string
+}
+variable "action" {
+  type = string
+}
+variable "principal" {
+  type = string
 }
