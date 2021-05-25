@@ -75,9 +75,9 @@ functions:
 
 custom:
   rust:
-    dockerTag: '0.3.0-rust-1.45.0'
+    dockerTag: '0.4.0-rust-1.51.0'
     cargoFlags: ''
-    dockerImage: 'softprops/lambda-rust'
+    dockerImage: 'peterbean/lambda-rust'
 # flags passed to 
      # cargo cargoFlags: '--features enable-awesome' # custom docker tag dockerTag: 'some-custom-tag' # custom docker image dockerImage: 'dockerUser/dockerRepo'
 
