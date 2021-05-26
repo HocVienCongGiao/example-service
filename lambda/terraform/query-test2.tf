@@ -22,6 +22,9 @@ resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.exampleservice-test2-query-api.invoke_arn
+    request_parameters = {
+"integration.request.header.X-Username" = "context.authorizer.claims.sub"
+  }
 }
 
 
