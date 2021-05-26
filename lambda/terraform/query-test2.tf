@@ -56,7 +56,7 @@ resource "aws_lambda_function" "exampleservice-test2-query-api" {
   # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
   source_code_hash = base64sha256(data.aws_s3_bucket_object.exampleservice-test2.last_modified)
 
-  runtime = "provided"
+  runtime = "provided.al2"
 
   vpc_config {
     # Every subnet should be able to reach an EFS mount target in the same Availability Zone. Cross-AZ mounts are not permitted.
