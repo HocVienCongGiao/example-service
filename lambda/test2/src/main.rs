@@ -19,7 +19,7 @@ async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error> {
         .unwrap_or(&default_header_value);
     // creating an application/json response
     Ok(json!({
-    "message": "Test 222 is me, how are you? ".to_owned() + auth_header.to_str().unwrap()
+    "message": "Test 333 is me, how are you? ".to_owned() + auth_header.to_str().unwrap()
     }))
 }
 
