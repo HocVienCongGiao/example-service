@@ -12,7 +12,8 @@ resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
   rest_api_id   = data.aws_api_gateway_rest_api.query-api.id
   resource_id   = aws_api_gateway_resource.exampleservice-test2-query-api-proxy.id
   http_method   = "ANY"
-  authorization = "NONE"
+  authorization = "COGNITO_USER_POOLS"
+  authorizer_id = data.terraform_remote_state.api-gateway.outputs.query-api_authorizer_id
 }
 
   resource "aws_api_gateway_integration" "exampleservice-test2-query-api" {

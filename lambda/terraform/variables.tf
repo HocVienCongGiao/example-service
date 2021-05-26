@@ -1,5 +1,17 @@
 variable "service_name" {}
 
+variable "organisation" {
+  default = "HocVienCongGiao"
+}
+
+variable "environment" {
+  default = "dev-sg"
+}
+
+variable "app_type" {
+  default = "apps"
+}
+
 variable "aws_region" {
   type    = string
   default = "ap-southeast-1"

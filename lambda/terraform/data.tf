@@ -30,3 +30,14 @@ data "aws_security_groups" "sg" {
     values = tolist([data.aws_subnet_ids.private.vpc_id])
   }
 }
+
+data "terraform_remote_state" "api-gateway" {
+  backend = "remote"
+
+  config = {
+    organization = var.organisation
+    workspaces = {
+      name = "${var.environment}-lambda-apps-hvcg-api-gateway"
+    }
+  }
+}
