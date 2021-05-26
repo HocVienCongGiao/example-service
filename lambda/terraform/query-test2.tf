@@ -19,14 +19,14 @@ resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
   rest_api_id = data.aws_api_gateway_rest_api.query-api.id
   resource_id = aws_api_gateway_method.exampleservice-test2-query-api-proxy.resource_id
   http_method = aws_api_gateway_method.exampleservice-test2-query-api-proxy.http_method
-  request_parameters = [ 
+  request_parameters = {
 "integration.request.header.X-Username" = "$context.authorizer.claims.property-name"
-]
+  }
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.exampleservice-test2-query-api.invoke_arn
 }
-  
+
 
   resource "aws_lambda_permission" "exampleservice-test2-query-api-gateway" {
   statement_id  = "AllowAPIGatewayInvoke"
@@ -37,7 +37,7 @@ resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
   # The "/*/*" portion grants access from any method on any resource
   # within the API Gateway REST API.
   source_arn = "${data.aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
-} 
+}
 
 data "aws_s3_bucket_object" "exampleservice-test2" {
   bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
