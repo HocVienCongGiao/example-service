@@ -1,3 +1,4 @@
+use lambda_http::http::HeaderValue;
 use lambda_http::{handler, lambda, Context, IntoResponse, Request};
 use serde_json::json;
 
@@ -9,11 +10,16 @@ async fn main() -> Result<(), Error> {
     Ok(())
 }
 
-async fn test2(_: Request, _: Context) -> Result<impl IntoResponse, Error> {
+async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error> {
     // `serde_json::Values` impl `IntoResponse` by default
+    let default_header_value = HeaderValue::from_str("anonymous").unwrap();
+    let auth_header = req
+        .headers()
+        .get("Authorization")
+        .unwrap_or(&default_header_value);
     // creating an application/json response
     Ok(json!({
-    "message": "Test 222 is me, how are you?"
+    "message": "Test 222 is me, how are you? ".to_owned() + auth_header.to_str().unwrap()
     }))
 }
 
@@ -25,7 +31,7 @@ mod tests {
     async fn test2_handles() {
         let request = Request::default();
         let expected = json!({
-        "message": "Test 222 is me, how are you?"
+        "message": "Test 222 is me, how are you? anonymous"
         })
         .into_response();
         let response = test2(request, Context::default())
