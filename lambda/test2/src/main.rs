@@ -15,7 +15,7 @@ async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error> {
     let default_header_value = HeaderValue::from_str("anonymous").unwrap();
     let auth_header = req
         .headers()
-        .get("Authorization")
+        .get("X-Username")
         .unwrap_or(&default_header_value);
     // creating an application/json response
     Ok(json!({
