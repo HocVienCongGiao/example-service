@@ -20,7 +20,7 @@ resource "aws_api_gateway_method" "exampleservice-test2-query-api-proxy" {
   resource_id = aws_api_gateway_method.exampleservice-test2-query-api-proxy.resource_id
   http_method = aws_api_gateway_method.exampleservice-test2-query-api-proxy.http_method
   request_parameters = {
-"integration.request.header.X-Username" = "$context.authorizer.claims.property-name"
+"integration.request.header.X-Username" = "$context.authorizer.claims.sub"
   }
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
