@@ -18,4 +18,6 @@ module "lambda-function-test2" {
     subnet_ids         = data.aws_subnet_ids.private.ids
     security_group_ids = data.aws_security_groups.sg.ids
     lambda_logs_name = "/aws/lambda/exampleservice-test2-query-api"
+    api_key          = var.api_key
+    tfe_token        = var.tfe_token
 }

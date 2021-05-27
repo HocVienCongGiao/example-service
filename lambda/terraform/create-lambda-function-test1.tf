@@ -17,4 +17,6 @@ module "lamda-function-test1" {
     security_group_ids = data.aws_security_groups.sg.ids
     source_code_hash = base64sha256(data.aws_s3_bucket_object.exampleservice-test1-query-api.last_modified)
     lambda_logs_name = "/aws/lambda/exampleservice-test1-query-api"
+    api_key          = var.api_key
+    tfe_token        = var.tfe_token
 }
