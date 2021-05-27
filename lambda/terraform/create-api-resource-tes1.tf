@@ -9,6 +9,6 @@ module "create_api-resouce-tes1" {
   integration_http_method = var.integration_http_method
   type                    = var.type
   # uri                     = aws_lambda_function.exampleservice-test1-query-api.invoke_arn
-  uri                     = module.lamda-function-test1.invoke_arn
+  uri                     = module.lamda-function-test1.this_uri
   source_arn = "${data.aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
 }
