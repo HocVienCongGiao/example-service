@@ -1,6 +1,7 @@
 
 module "service-function" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/service-function?ref=trigger"
+  service_name = "example-service"
   statement_id = var.statement_id
   action = var.action
   principal = var.principal
