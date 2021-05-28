@@ -9,7 +9,6 @@ module "service-function" {
   s3_key = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
   function_name = "exampleservice-test2"
   handler = "test2"
-  source_code_hash = base64sha256("fake-file-hash")
   subnet_ids = data.aws_subnet_ids.private.ids
   security_group_ids = data.aws_security_groups.sg.ids
   path_part = var.path_part_test2
