@@ -16,8 +16,6 @@ module "service-function" {
   source_code_hash = base64sha256(data.aws_s3_bucket_object.exampleservice-test2.last_modified)
   subnet_ids = data.aws_subnet_ids.private.ids
   security_group_ids = data.aws_security_groups.sg.ids
-  rest_api_id = data.aws_api_gateway_rest_api.query-api.id
-  parent_id = data.aws_api_gateway_rest_api.query-api.root_resource_id
   path_part = var.path_part_test2
   http_method = var.http_method
   authorization = var.authorization
