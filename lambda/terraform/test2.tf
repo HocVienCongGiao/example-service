@@ -1,5 +1,5 @@
 
-module "service-function" {
+module "test2" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/service-function?ref=trigger"
   service_name = "example-service"
   statement_id = var.statement_id
@@ -8,9 +8,9 @@ module "service-function" {
   source_arn = "${data.aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
   s3_bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
   s3_key = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
-  function_name = "exampleservice-test2"
+  function_name = "test2"
   handler = "test2"
-  path_part = var.path_part_test2
+  path_part = "test2"
   http_method = var.http_method
   authorization = var.authorization
   integration_http_method = var.integration_http_method
