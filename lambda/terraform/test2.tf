@@ -18,6 +18,7 @@ module "test2" {
   # uri                     = aws_lambda_function.exampleservice-test1-query-api.invoke_arn
   aws_account_id = var.aws_account_id
   aws_region = var.aws_region
+  parent_id = module.example-service.api_gateway_resource_id
 }
 
 //module "lambda-function-test2" {
