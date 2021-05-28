@@ -8,7 +8,6 @@ module "example-service" {
   source_arn = "${data.aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
   s3_bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
   s3_key = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
-  function_name = "example-service"
   handler = "test2"
   path_part = "example-service"
   http_method = var.http_method
