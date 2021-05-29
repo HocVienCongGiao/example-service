@@ -21,9 +21,8 @@ variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 variable "environment" {}
 
-variable "aws_account_id" {
-   type = string 
- }
+variable "aws_account_id" {}
+variable "organisation" {}
 
 variable "api_key" {
   type    = string
