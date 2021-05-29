@@ -1,1 +1,1 @@
-To trigger resources creation 2
+To trigger resources creation
