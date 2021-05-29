@@ -5,7 +5,6 @@ module "test2" {
   statement_id = var.statement_id
   action = var.action
   principal = var.principal
-  source_arn = "${data.aws_api_gateway_rest_api.query-api.execution_arn}/*/*"
   s3_bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
   s3_key = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
   function_name = "test2"
