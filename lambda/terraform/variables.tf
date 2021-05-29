@@ -33,23 +33,3 @@ variable "api_key" {
 variable "tfe_token" {
   type = string
 }
-
-variable "path_part_test1" {
-  type = string
-}
-variable "path_part_test2" {
-  type = string
-}
-
-variable "http_method"{
-  type = string
-}
-variable "authorization" {
-  type = string
-}
-variable "integration_http_method" {
-  type = string
-}
-variable "type" {
-  type = string
-}

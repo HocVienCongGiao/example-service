@@ -17,12 +17,7 @@ provider "aws" {
 
 module "example-service" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/service-function?ref=trigger"
-  service_name = "example-service"
-
-  http_method = var.http_method
-  authorization = var.authorization
-  integration_http_method = var.integration_http_method
-  type = var.type
+  service_name = var.service_name
   aws_account_id = var.aws_account_id
   aws_region = var.aws_region
 }
