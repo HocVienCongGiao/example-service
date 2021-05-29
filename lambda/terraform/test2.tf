@@ -4,8 +4,6 @@ module "test2" {
   service_name = "example-service"
 
   function_name = "test2"
-  handler = "test2"
-  path_part = "test2"
   http_method = var.http_method
   authorization = var.authorization
   integration_http_method = var.integration_http_method

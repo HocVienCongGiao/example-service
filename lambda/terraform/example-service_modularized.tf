@@ -19,8 +19,6 @@ module "example-service" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/service-function?ref=trigger"
   service_name = "example-service"
 
-  handler = "test2"
-  path_part = "example-service"
   http_method = var.http_method
   authorization = var.authorization
   integration_http_method = var.integration_http_method
