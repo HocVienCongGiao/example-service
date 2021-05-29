@@ -29,7 +29,6 @@ module "example-service" {
   authorization = var.authorization
   integration_http_method = var.integration_http_method
   type = var.type
-  # uri                     = aws_lambda_function.exampleservice-test1-query-api.invoke_arn
   aws_account_id = var.aws_account_id
   aws_region = var.aws_region
 }
