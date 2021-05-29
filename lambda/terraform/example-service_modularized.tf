@@ -18,9 +18,7 @@ provider "aws" {
 module "example-service" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/service-function?ref=trigger"
   service_name = "example-service"
-  statement_id = var.statement_id
-  action = var.action
-  principal = var.principal
+
   s3_bucket = "${var.aws_account_id}-${var.aws_region}-aws-lambda"
   s3_key = "dev-sg-hocvienconggiao/example-service/latest/test2.zip"
   handler = "test2"

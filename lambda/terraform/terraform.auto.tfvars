@@ -6,6 +6,3 @@ authorization = "NONE"
 integration_http_method = "POST"
 type                    = "AWS_PROXY"
 
-statement_id  = "AllowAPIGatewayInvoke"
-action        = "lambda:InvokeFunction"
-principal     = "apigateway.amazonaws.com"

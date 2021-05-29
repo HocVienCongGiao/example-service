@@ -53,12 +53,3 @@ variable "integration_http_method" {
 variable "type" {
   type = string
 }
-variable "statement_id" {
-  type = string
-}
-variable "action" {
-  type = string
-}
-variable "principal" {
-  type = string
-}
