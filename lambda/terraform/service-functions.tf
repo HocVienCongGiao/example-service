@@ -2,11 +2,12 @@
 module "test2" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/service-function?ref=trigger"
   service_name = var.service_name
-
+  parent_id = module.example-service.api_gateway_resource_id
   function_name = "test2"
+
+  environment = var.environment
   aws_account_id = var.aws_account_id
   aws_region = var.aws_region
-  parent_id = module.example-service.api_gateway_resource_id
 }
 
 //module "lambda-function-test2" {
