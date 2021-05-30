@@ -6,8 +6,6 @@ module "test2" {
   function_name = "test2"
 
   environment = var.environment
-  aws_account_id = var.aws_account_id
-  aws_region = var.aws_region
 }
 
 //module "lambda-function-test2" {

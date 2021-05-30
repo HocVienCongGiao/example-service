@@ -21,6 +21,4 @@ module "example-service" {
   path_part = var.service_name
 
   environment = var.environment
-  aws_account_id = var.aws_account_id
-  aws_region = var.aws_region
 }
