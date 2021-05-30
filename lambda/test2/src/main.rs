@@ -52,7 +52,7 @@ mod tests {
     async fn test2_handles() {
         let request = Request::default();
         let expected = json!({
-        "message": "Test 333 is me, how are you? anonymous"
+            "message": "Test 2 is me, how are you?"
         })
         .into_response();
         let response = test2(request, Context::default())
