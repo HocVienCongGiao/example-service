@@ -5,4 +5,5 @@ module "test2" {
   function_name = "test2"
 
   environment = var.environment
+  
 }
