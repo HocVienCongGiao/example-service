@@ -3,7 +3,7 @@ name: Deploy TF skipping Test
 on:
   push:
     branches:
-      - update-role
+      - update-config
 
 jobs:
 
