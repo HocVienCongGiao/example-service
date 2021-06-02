@@ -8,7 +8,7 @@ on:
 jobs:
 
   push_dev:
-    if: github.ref == 'refs/heads/update-role'
+    if: github.ref == 'refs/heads/update-config'
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
