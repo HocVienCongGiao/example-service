@@ -21,4 +21,5 @@ module "example-service" {
   path_part = var.service_name
 
   environment = var.environment
+  
 }
