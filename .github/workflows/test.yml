@@ -5,6 +5,9 @@ on:
     branches-ignore:
       - dev
       - prod
+      
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   check_lambda_files:
