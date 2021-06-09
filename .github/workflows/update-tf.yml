@@ -3,12 +3,12 @@ name: Deploy TF skipping Test
 on:
   push:
     branches:
-      - update-config
+      - update-tf
 
 jobs:
 
   push_dev:
-    if: github.ref == 'refs/heads/update-config'
+    if: github.ref == 'refs/heads/update-tf'
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
