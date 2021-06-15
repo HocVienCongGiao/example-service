@@ -4,7 +4,6 @@ on:
   push:
     branches-ignore:
       - dev
-      - prod
       
 env:
   CARGO_TERM_COLOR: always
@@ -44,7 +43,7 @@ jobs:
 
   codestyle:
     runs-on: ubuntu-latest
-    needs: [ check_lambda_files ]
+#    needs: [ check_lambda_files ]
     if: needs.check_lambda_files.outputs.run_job == 'true'
     steps:
       - name: Set up Rust
@@ -58,7 +57,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    needs: [ check_lambda_files ]
+#    needs: [ check_lambda_files ]
     if: needs.check_lambda_files.outputs.run_job == 'true'
     steps:
       - name: Set up Rust
@@ -72,7 +71,7 @@ jobs:
 
   compile:
     runs-on: ubuntu-latest
-    needs: [ check_lambda_files ]
+#    needs: [ check_lambda_files ]
     if: needs.check_lambda_files.outputs.run_job == 'true'
     steps:
       - name: Set up Rust
@@ -98,7 +97,6 @@ jobs:
         # Default: ${{ github.repository }}
         repository: 'HocVienCongGiao/shared-db-service'
         path: ./db-service
-
       
     - name: Test lambda
       working-directory: lambda    
