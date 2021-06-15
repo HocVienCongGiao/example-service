@@ -81,7 +81,7 @@ jobs:
         working-directory: lambda      
         run: cargo check --all
   test:
-    needs: [codestyle, lint, compile]
+#    needs: [codestyle, lint, compile]
     runs-on: ubuntu-latest
     steps:
     - name: Setup Rust
