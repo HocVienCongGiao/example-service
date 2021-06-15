@@ -101,8 +101,7 @@ jobs:
         token: ${{ secrets.GH_OAUTH_TOKEN }}
       
     - name: Test lambda
-      working-directory: lambda    
-    #  run: cd ./rust-service && cargo test
-      run: ls -Ral && pwd
+      working-directory: ./rust-service/lambda    
+      run: cargo test
 
 
