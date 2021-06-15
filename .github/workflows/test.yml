@@ -98,6 +98,7 @@ jobs:
         repository: 'HocVienCongGiao/shared-db-service'
         path: ./db-service
         ref: development
+        token: ${{ secrets.GH_OAUTH_TOKEN }}
       
     - name: Test lambda
       working-directory: lambda    
