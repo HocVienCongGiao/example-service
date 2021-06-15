@@ -1,2 +1,2 @@
-use refinery::embed_migrations;
-embed_migrations!("migrations");
+// use refinery::embed_migrations;
+// embed_migrations!("migrations");

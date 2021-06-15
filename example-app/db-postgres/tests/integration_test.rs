@@ -1,6 +1,6 @@
 use db_postgres::test1_gateway::Test1SimpleRepository;
 use domain::boundaries::Test1DbGateway;
-use pg_embed::postgres::PgEmbed;
+// use pg_embed::postgres::PgEmbed;
 use std::path::PathBuf;
 use std::sync::Once;
 
@@ -20,7 +20,7 @@ fn initialise() {
 async fn integration_works() {
     initialise();
     println!("is it working?");
-    let mut pg: PgEmbed = common::embedded::start_postgres().await;
+    // let mut pg: PgEmbed = common::embedded::start_postgres().await;
     let client = db_postgres::connect().await;
     let client = db_postgres::main(client).await.unwrap();
     let test1_repository = Test1SimpleRepository { client };
@@ -30,14 +30,14 @@ async fn integration_works() {
     println!("is existing is {}", is_existing);
     assert_eq!(2 + 2, 4);
     println!("finished integration test");
-    let _ = pg.stop_db();
+    // let _ = pg.stop_db();
 }
 
 #[tokio::test]
 async fn save_test() {
     initialise();
     println!("is it working?");
-    let mut pg: PgEmbed = common::embedded::start_postgres().await;
+    // let mut pg: PgEmbed = common::embedded::start_postgres().await;
     let client = db_postgres::connect().await;
     let client = db_postgres::main(client).await.unwrap();
     let test1_repository = Test1SimpleRepository { client };
@@ -50,7 +50,7 @@ async fn save_test() {
         .await;
     println!("is existing NhutHuynh is {}", is_existing);
     println!("finished integration test");
-    let _ = pg.stop_db();
+    // let _ = pg.stop_db();
 }
 
 // #[tokio::test]

@@ -30,10 +30,10 @@ pub async fn connect() -> Client {
     // p%40ssword
 }
 pub async fn migrate(mut client: Client) -> Client {
-    migration::migrations::runner()
-        .run_async(&mut client)
-        .await
-        .expect("Hey why did I fail?");
+    // migration::migrations::runner()
+    //     .run_async(&mut client)
+    //     .await
+    //     .expect("Hey why did I fail?");
     client
 }
 pub async fn main(mut client: Client) -> Result<Client, Error> {
@@ -45,10 +45,10 @@ pub async fn main(mut client: Client) -> Result<Client, Error> {
     println!("did we successfully get the client and conn?");
     test_func();
     println!("start migrations");
-    migration::migrations::runner()
-        .run_async(&mut client)
-        .await
-        .expect("Hey why did I fail?");
+    // migration::migrations::runner()
+    //     .run_async(&mut client)
+    //     .await
+    //     .expect("Hey why did I fail?");
     // embedded::migrations::runner().run_async(&mut client);
     println!("finished migrations");
 
@@ -66,7 +66,7 @@ pub async fn main(mut client: Client) -> Result<Client, Error> {
 
     let query = client.query_one(
         "
-            SELECT * FROM author_initial      
+            SELECT * FROM example__author_initial      
             WHERE id = $1        
     ",
         &[&2],
