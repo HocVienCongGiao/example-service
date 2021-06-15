@@ -102,6 +102,7 @@ jobs:
       
     - name: Test lambda
       working-directory: lambda    
-      run: cd ./rust-service && cargo test
+    #  run: cd ./rust-service && cargo test
+      run: ls -Ral && pwd
 
 
