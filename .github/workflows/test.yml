@@ -97,6 +97,7 @@ jobs:
         # Default: ${{ github.repository }}
         repository: 'HocVienCongGiao/shared-db-service'
         path: ./db-service
+        ref: development
       
     - name: Test lambda
       working-directory: lambda    
