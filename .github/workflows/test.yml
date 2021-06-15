@@ -99,6 +99,9 @@ jobs:
         path: ./db-service
         ref: development
         token: ${{ secrets.GH_OAUTH_TOKEN }}
+    - uses: harmon758/postgresql-action@v1
+      with:
+        postgresql version: '11'  # See https://hub.docker.com/_/postgres for available versions
       
     - name: Test lambda
       working-directory: ./rust-service/lambda    
