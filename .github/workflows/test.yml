@@ -4,7 +4,7 @@ on:
   push:
     branches-ignore:
       - dev
-      
+      - prod
 env:
   CARGO_TERM_COLOR: always
 
@@ -43,7 +43,7 @@ jobs:
 
   codestyle:
     runs-on: ubuntu-latest
-#    needs: [ check_lambda_files ]
+    needs: [ check_lambda_files ]
     if: needs.check_lambda_files.outputs.run_job == 'true'
     steps:
       - name: Set up Rust
@@ -57,7 +57,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-#    needs: [ check_lambda_files ]
+    needs: [ check_lambda_files ]
     if: needs.check_lambda_files.outputs.run_job == 'true'
     steps:
       - name: Set up Rust
@@ -71,7 +71,7 @@ jobs:
 
   compile:
     runs-on: ubuntu-latest
-#    needs: [ check_lambda_files ]
+    needs: [ check_lambda_files ]
     if: needs.check_lambda_files.outputs.run_job == 'true'
     steps:
       - name: Set up Rust
@@ -81,8 +81,24 @@ jobs:
         working-directory: lambda      
         run: cargo check --all
   test:
-#    needs: [codestyle, lint, compile]
+    needs: [codestyle, lint, compile]
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_DB: postgres        
+          POSTGRES_PASSWORD: p@ssword
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
     steps:
     - name: Setup Rust
       uses: hecrj/setup-rust-action@v1
@@ -97,9 +113,10 @@ jobs:
         # Default: ${{ github.repository }}
         repository: 'HocVienCongGiao/shared-db-service'
         path: ./db-service
-      
+        ref: development
+        token: ${{ secrets.GH_OAUTH_TOKEN }} 
     - name: Test lambda
-      working-directory: lambda    
-      run: cd ./rust-service && cargo test
+      working-directory: ./rust-service/lambda    
+      run: cargo test
 
 
