@@ -213,7 +213,6 @@ version = "0.1.5"
 dependencies = [
  "async-trait",
  "domain",
- "dotenv",
  "tokio 1.6.0",
  "tokio-postgres",
 ]
@@ -1806,9 +1805,11 @@ dependencies = [
 name = "test2"
 version = "0.1.5"
 dependencies = [
+ "controller",
+ "dotenv",
  "lambda_http",
  "serde_json",
- "tokio 0.2.21",
+ "tokio 1.6.0",
 ]
 
 [[package]]
