@@ -4,7 +4,7 @@ A project with the structure that supports multi function [Rustlang AWS Lambda](
 
 ## ✨ features
 
-* 🦀 Auto-approve API to approve automatically TF workspaces that need human attention.
+* 🦀 Auto-approve API to approve automatically TF workspaces that need human attention
 - 🛵 Continuous integration testing with GitHub Actions
 - 🚀 Continuous deployment with GitHub Actions
 * 🧪 How to retrieve logs from EFS
