@@ -1,10 +1,10 @@
 [package]
-name = "example-controller"
+name = "controller"
 version = "0.1.5"
 edition = "2018"
 publish = ["artifactory"]
 
 [dependencies]
-domain = { package = "example-domain", path = "../domain" , version = "0.1.5"}
+domain = { path = "../domain" , version = "0.1.5"}
 tokio-postgres = "0.7.2"
-db-postgres = { package = "db-postgres", path = "../db-postgres", version = "0.1.5" }
+db-postgres = { path = "../db-postgres", version = "0.1.5" }
