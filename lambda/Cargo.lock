@@ -164,6 +164,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "controller"
+version = "0.1.5"
+dependencies = [
+ "db-postgres",
+ "domain",
+ "tokio-postgres",
+]
+
+[[package]]
 name = "core-foundation"
 version = "0.9.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -203,8 +212,8 @@ name = "db-postgres"
 version = "0.1.5"
 dependencies = [
  "async-trait",
+ "domain",
  "dotenv",
- "example-domain",
  "tokio 1.6.0",
  "tokio-postgres",
 ]
@@ -219,6 +228,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "domain"
+version = "0.1.5"
+dependencies = [
+ "async-trait",
+ "futures",
+]
+
+[[package]]
 name = "dotenv"
 version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -229,23 +246,6 @@ name = "dtoa"
 version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "134951f4028bdadb9b84baf4232681efbf277da25144b9b0ad65df75946c422b"
-
-[[package]]
-name = "example-controller"
-version = "0.1.5"
-dependencies = [
- "db-postgres",
- "example-domain",
- "tokio-postgres",
-]
-
-[[package]]
-name = "example-domain"
-version = "0.1.5"
-dependencies = [
- "async-trait",
- "futures",
-]
 
 [[package]]
 name = "fallible-iterator"
@@ -1794,8 +1794,8 @@ dependencies = [
 name = "test1"
 version = "0.1.5"
 dependencies = [
+ "controller",
  "dotenv",
- "example-controller",
  "hvcg_example_openapi_entity",
  "lambda_http",
  "serde_json",

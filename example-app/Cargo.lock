@@ -189,6 +189,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "245097e9a4535ee1e3e3931fcfcd55a796a44c643e8596ff6566d68f09b87bbc"
 
 [[package]]
+name = "controller"
+version = "0.1.5"
+dependencies = [
+ "db-postgres",
+ "domain",
+ "tokio-postgres",
+]
+
+[[package]]
 name = "cpufeatures"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -309,8 +318,8 @@ name = "db-postgres"
 version = "0.1.5"
 dependencies = [
  "async-trait",
+ "domain",
  "dotenv",
- "example-domain",
  "tokio 1.6.0",
  "tokio-postgres",
 ]
@@ -345,6 +354,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "domain"
+version = "0.1.5"
+dependencies = [
+ "async-trait",
+ "futures 0.3.15",
+]
+
+[[package]]
 name = "dotenv"
 version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -355,41 +372,6 @@ name = "either"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e78d4f1cc4ae33bbfc157ed5d5a5ef3bc29227303d595861deb238fcec4e9457"
-
-[[package]]
-name = "example-controller"
-version = "0.1.5"
-dependencies = [
- "db-postgres",
- "example-domain",
- "tokio-postgres",
-]
-
-[[package]]
-name = "example-domain"
-version = "0.1.5"
-dependencies = [
- "async-trait",
- "futures 0.3.15",
-]
-
-[[package]]
-name = "example-iam-cognito"
-version = "0.1.5"
-dependencies = [
- "chrono",
- "example-domain",
- "rusoto_cognito_idp",
- "rusoto_core",
- "tokio 1.6.0",
-]
-
-[[package]]
-name = "example-presenter"
-version = "0.1.5"
-dependencies = [
- "example-domain",
-]
 
 [[package]]
 name = "fake-simd"
@@ -709,6 +691,17 @@ dependencies = [
  "tokio-rustls",
  "webpki",
  "webpki-roots",
+]
+
+[[package]]
+name = "iam-cognito"
+version = "0.1.5"
+dependencies = [
+ "chrono",
+ "domain",
+ "rusoto_cognito_idp",
+ "rusoto_core",
+ "tokio 1.6.0",
 ]
 
 [[package]]
@@ -1111,6 +1104,13 @@ name = "ppv-lite86"
 version = "0.2.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ac74c624d6b2d21f425f752262f42188365d7b8ff1aff74c82e45136510a4857"
+
+[[package]]
+name = "presenter"
+version = "0.1.5"
+dependencies = [
+ "domain",
+]
 
 [[package]]
 name = "proc-macro-hack"
