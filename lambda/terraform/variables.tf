@@ -29,3 +29,8 @@ variable "api_key" {
 variable "tfe_token" {
   type = string
 }
+
+variable "db_host" {}
+variable "db_user" {}
+variable "db_password" {}
+variable "db_name" {}
