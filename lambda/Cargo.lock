@@ -22,6 +22,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d25d88fd6b8041580a654f9d0c581a047baee2b3efee13275f2fc392fc75034"
 
 [[package]]
+name = "async-stream"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "171374e7e3b2504e0e5236e3b59260560f9fe94bfe9ac39ba5e4e929c5590625"
+dependencies = [
+ "async-stream-impl",
+ "futures-core",
+]
+
+[[package]]
+name = "async-stream-impl"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "648ed8c8d2ce5409ccd57453d9d1b214b342a0d69376a6feda1fd6cae3299308"
+dependencies = [
+ "proc-macro2 1.0.26",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "async-trait"
 version = "0.1.50"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -530,10 +551,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "http-body"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "60daa14be0e0786db0f03a9e57cb404c9d756eed2b6c62b9ea98ec5743ec75a9"
+dependencies = [
+ "bytes 1.0.1",
+ "http",
+ "pin-project-lite 0.2.6",
+]
+
+[[package]]
 name = "httparse"
 version = "1.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f3a87b616e37e93c22fb19bcd386f02f3af5ea98a25670ad0fce773de23c5e68"
+
+[[package]]
+name = "httpdate"
+version = "1.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6456b8a6c8f33fee7d958fcd1b60d55b11940a79e63ae87013e6d22e26034440"
 
 [[package]]
 name = "hvcg_example_openapi_entity"
@@ -544,7 +582,7 @@ dependencies = [
  "async-trait",
  "chrono",
  "futures",
- "hyper",
+ "hyper 0.13.6",
  "hyper-openssl",
  "hyper-tls",
  "lazy_static",
@@ -576,7 +614,7 @@ dependencies = [
  "futures-util",
  "h2",
  "http",
- "http-body",
+ "http-body 0.3.1",
  "httparse",
  "itoa",
  "log 0.4.8",
@@ -585,6 +623,29 @@ dependencies = [
  "time",
  "tokio 0.2.21",
  "tower-service",
+ "want",
+]
+
+[[package]]
+name = "hyper"
+version = "0.14.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "07d6baa1b441335f3ce5098ac421fb6547c46dda735ca1bc6d0153c838f9dd83"
+dependencies = [
+ "bytes 1.0.1",
+ "futures-channel",
+ "futures-core",
+ "futures-util",
+ "http",
+ "http-body 0.4.2",
+ "httparse",
+ "httpdate",
+ "itoa",
+ "pin-project-lite 0.2.6",
+ "socket2 0.4.0",
+ "tokio 1.6.0",
+ "tower-service",
+ "tracing",
  "want",
 ]
 
@@ -614,7 +675,7 @@ dependencies = [
  "antidote",
  "bytes 0.5.5",
  "http",
- "hyper",
+ "hyper 0.13.6",
  "linked_hash_set",
  "once_cell",
  "openssl",
@@ -631,7 +692,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d979acc56dcb5b8dddba3917601745e877576475aa046df3226eabdecef78eed"
 dependencies = [
  "bytes 0.5.5",
- "hyper",
+ "hyper 0.13.6",
  "native-tls",
  "tokio 0.2.21",
  "tokio-tls",
@@ -701,12 +762,31 @@ dependencies = [
  "futures",
  "genawaiter",
  "http",
- "hyper",
- "lambda-attributes",
+ "hyper 0.13.6",
+ "lambda-attributes 0.1.0 (git+https://github.com/awslabs/aws-lambda-rust-runtime/)",
  "serde",
  "serde_json",
  "tokio 0.2.21",
  "tower-service",
+ "tracing",
+ "tracing-error",
+ "tracing-futures",
+]
+
+[[package]]
+name = "lambda"
+version = "0.1.0"
+source = "git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1#4d9e58be3cdb17de035c5dbfb02f4ef9b921f00c"
+dependencies = [
+ "async-stream",
+ "bytes 1.0.1",
+ "futures",
+ "http",
+ "hyper 0.14.9",
+ "lambda-attributes 0.1.0 (git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1)",
+ "serde",
+ "serde_json",
+ "tokio 1.6.0",
  "tracing",
  "tracing-error",
  "tracing-futures",
@@ -723,14 +803,39 @@ dependencies = [
 ]
 
 [[package]]
+name = "lambda-attributes"
+version = "0.1.0"
+source = "git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1#4d9e58be3cdb17de035c5dbfb02f4ef9b921f00c"
+dependencies = [
+ "proc-macro2 1.0.26",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "lambda_http"
 version = "0.2.0-beta.1"
 source = "git+https://github.com/awslabs/aws-lambda-rust-runtime/#c8dbcd39e0b1cf9ecf395e2b2f9df6c6c0d97780"
 dependencies = [
  "base64 0.12.3",
  "http",
- "lambda",
- "lambda-attributes",
+ "lambda 0.1.0 (git+https://github.com/awslabs/aws-lambda-rust-runtime/)",
+ "lambda-attributes 0.1.0 (git+https://github.com/awslabs/aws-lambda-rust-runtime/)",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_urlencoded",
+]
+
+[[package]]
+name = "lambda_http"
+version = "0.2.0-beta.1"
+source = "git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1#4d9e58be3cdb17de035c5dbfb02f4ef9b921f00c"
+dependencies = [
+ "base64 0.12.3",
+ "http",
+ "lambda 0.1.0 (git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1)",
+ "lambda-attributes 0.1.0 (git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1)",
  "serde",
  "serde_derive",
  "serde_json",
@@ -1740,7 +1845,7 @@ dependencies = [
  "base64 0.12.3",
  "chrono",
  "futures",
- "hyper",
+ "hyper 0.13.6",
  "hyper-old-types",
  "hyper-openssl",
  "hyper-tls",
@@ -1796,7 +1901,7 @@ dependencies = [
  "controller",
  "dotenv",
  "hvcg_example_openapi_entity",
- "lambda_http",
+ "lambda_http 0.2.0-beta.1 (git+https://github.com/awslabs/aws-lambda-rust-runtime/)",
  "serde_json",
  "tokio 1.6.0",
 ]
@@ -1807,7 +1912,7 @@ version = "0.1.5"
 dependencies = [
  "controller",
  "dotenv",
- "lambda_http",
+ "lambda_http 0.2.0-beta.1 (git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1)",
  "serde_json",
  "tokio 1.6.0",
 ]
