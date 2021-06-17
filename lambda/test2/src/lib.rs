@@ -7,7 +7,7 @@ use lambda_http::{handler, lambda, Body, Context, IntoResponse, Request, Respons
 use serde_json::json;
 type Error = Box<dyn std::error::Error + Sync + Send + 'static>;
 
-pub async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error> {
+pub async fn test2(req: Request, ctx: Context) -> Result<impl IntoResponse, Error> {
     // `serde_json::Values` impl `IntoResponse` by default
     let default_header_value = HeaderValue::from_str("anonymous2").unwrap();
     let auth_header = req
@@ -19,6 +19,7 @@ pub async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error>
     // "message": "Test 2 is me, how are you?"
     // }))
     println!("auth_header is {}", auth_header.to_str().unwrap());
+    println!("context.identity.cognitoIdentityId is {:?}", ctx.identity.cognitoIdentityId);
     let value = json!(
         {
             "message": "Test 2 20210616 is me, how are you?"
