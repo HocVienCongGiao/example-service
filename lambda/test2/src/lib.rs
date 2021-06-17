@@ -19,10 +19,7 @@ pub async fn test2(req: Request, ctx: Context) -> Result<impl IntoResponse, Erro
     // "message": "Test 2 is me, how are you?"
     // }))
     println!("auth_header is {}", auth_header.to_str().unwrap());
-    println!(
-        "context.identity.cognitoIdentityId is {:?}",
-        ctx.identity.unwrap().identity_id
-    );
+    println!("context.identity.cognitoIdentityId is {:?}", req.headers());
     let value = json!(
         {
             "message": "Test 2 20210616 is me, how are you?"
