@@ -18,7 +18,7 @@ pub async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error>
     // Ok(json!({
     // "message": "Test 2 is me, how are you?"
     // }))
-    println!("auth_header is {}", auth_headerto_str().unwrap());
+    println!("auth_header is {}", auth_header.to_str().unwrap());
     let value = json!(
         {
             "message": "Test 2 20210616 is me, how are you?"
