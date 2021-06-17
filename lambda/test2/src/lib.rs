@@ -9,7 +9,7 @@ type Error = Box<dyn std::error::Error + Sync + Send + 'static>;
 
 pub async fn test2(req: Request, _: Context) -> Result<impl IntoResponse, Error> {
     // `serde_json::Values` impl `IntoResponse` by default
-    let default_header_value = HeaderValue::from_str("anonymous").unwrap();
+    let default_header_value = HeaderValue::from_str("anonymous2").unwrap();
     let auth_header = req
         .headers()
         .get("x-username")
