@@ -196,6 +196,7 @@ version = "0.1.5"
 dependencies = [
  "db-postgres",
  "domain",
+ "hvcg_example_openapi_entity",
  "tokio-postgres",
 ]
 

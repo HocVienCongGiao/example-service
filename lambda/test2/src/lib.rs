@@ -72,18 +72,18 @@ pub async fn test2(req: Request, ctx: Context) -> Result<impl IntoResponse, Erro
             "message": "Test 2 20210616 is me, how are you?"
         }
     );
+    let test1Response = controller::get_pet().await;
     let response: Response<Body> = Response::builder()
         .header(CONTENT_TYPE, "application/json")
         .header(ACCESS_CONTROL_ALLOW_ORIGIN, "*")
         .header(ACCESS_CONTROL_ALLOW_HEADERS, "*")
         .header(ACCESS_CONTROL_ALLOW_METHODS, "*")
         .body(
-            serde_json::to_string(&value)
+            serde_json::to_string(&test1Response)
                 .expect("unable to serialize serde_json::Value")
                 .into(),
         )
         .expect("unable to build http::Response");
-    let test1Response = controller::get_test1().await;
-    println!("test1Response {}", test1Response.status);
+    println!("test1Response {:?}", serde_json::to_string(&test1Response));
     Ok(response)
 }

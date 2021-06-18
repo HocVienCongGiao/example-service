@@ -1,12 +1,15 @@
+use crate::openapi::test1::{Test1SimpleQueryResponse, ToOpenApi};
 use db_postgres::test1_gateway::Test1SimpleRepository;
-use domain::boundaries::{
-    Test1DbGateway, Test1SimpleQueryInputBoundary, Test1SimpleQueryRequest,
-    Test1SimpleQueryResponse,
-};
+use domain::boundaries::{Test1DbGateway, Test1SimpleQueryInputBoundary, Test1SimpleQueryRequest};
 
 pub mod openapi;
 
-pub async fn get_test1() -> Test1SimpleQueryResponse {
+pub async fn get_pet() -> openapi::test1::Pet {
+    let response = get_test1().await;
+    response.to_openapi()
+}
+
+async fn get_test1() -> Test1SimpleQueryResponse {
     let client = db_postgres::connect().await;
     let client = db_postgres::migrate(client).await;
 

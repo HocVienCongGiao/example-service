@@ -28,9 +28,9 @@ async fn integration_works() {
     initialise();
     println!("is it working?");
     let request = Request::default();
-    let expected = json!({
-        "message": "Test 2 20210616 is me, how are you?"
-    })
+    let expected = json!(
+        {"name":"No Name for status 200","photoUrls":[],"status":"200"}
+    )
     .into_response();
     let response = test2::test2(request, Context::default())
         .await

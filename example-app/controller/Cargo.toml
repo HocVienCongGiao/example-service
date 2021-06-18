@@ -8,3 +8,4 @@ publish = ["artifactory"]
 domain = { path = "../domain" , version = "0.1.5"}
 tokio-postgres = "0.7.2"
 db-postgres = { path = "../db-postgres", version = "0.1.5" }
+hvcg_example_openapi_entity = "1.0.0"
