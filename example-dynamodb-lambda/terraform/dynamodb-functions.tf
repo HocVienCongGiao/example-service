@@ -1,4 +1,4 @@
-module "test2" {
+module "MyTable" {
   source = "git::ssh://git@github.com/HocVienCongGiao/terraform-infra.git//skeleton/services/dynamodb-function"
   service_name = var.service_name
 
