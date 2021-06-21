@@ -27,6 +27,8 @@ functions:
     handler: test1
   test2:
     handler: test2
+  test3:
+    handler: test3
 
 #  hello:
 #    # handler value syntax is `{cargo-package-name}.{bin-name}`
