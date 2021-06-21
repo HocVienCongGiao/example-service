@@ -2004,6 +2004,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "test3"
+version = "0.1.0"
+dependencies = [
+ "controller",
+ "dotenv",
+ "jsonwebtoken",
+ "lambda_http 0.2.0-beta.1 (git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1)",
+ "serde",
+ "serde_json",
+ "tokio 1.6.0",
+]
+
+[[package]]
 name = "time"
 version = "0.1.43"
 source = "registry+https://github.com/rust-lang/crates.io-index"
