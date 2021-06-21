@@ -3,7 +3,7 @@ name: Build and Push Processor
 on:
   push:
     branches:
-      - dev
+      - test-processor
       - prod
 env:
   CARGO_TERM_COLOR: always
