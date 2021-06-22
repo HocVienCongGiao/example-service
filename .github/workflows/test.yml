@@ -119,6 +119,11 @@ jobs:
         token: ${{ secrets.GH_OAUTH_TOKEN }}
     - name: Setup python
       working-directory: ./db-service
+      env:
+        DB_USER: hocvien_dev
+        DB_NAME: dev_hocvien
+        DB_PASSWORD: 123456
+        DB_HOST: db
       run: |
         echo "prepare"
         sudo apt-get update -y &&
