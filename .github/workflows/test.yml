@@ -123,7 +123,7 @@ jobs:
         DB_NAME: dev_hocvien
         DB_PASSWORD: 123456
         DB_USER: hocvien_dev
-        DB_HOST: postgres
+        DB_HOST: localhost
       run: |
         echo "prepare"
         sudo apt-get update -y &&
@@ -141,8 +141,7 @@ jobs:
         cp -R ./migrations ./lambda/terraform/module/python/
         echo "all files in shared_db_app python folder"
         ls -l ./lambda/terraform/module/python/
-        export DB_HOST=postgres
-        cd ./lambda/terraform/module/python/ && sudo python3 -c 'from shared_db_app.migration import migrate; migrate()'
+        cd ./lambda/terraform/module/python/ && sudo python -c 'from shared_db_app.migration import migrate; migrate()'
 #    commented this for testing purpose
 #    - name: Test lambda
 #      working-directory: ./rust-service/lambda
