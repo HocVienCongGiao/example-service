@@ -128,10 +128,7 @@ jobs:
       run: |
         echo "prepare"
         sudo apt-get update -y &&
-        sudo apt-get install -y postgresql-server-dev-all &&
-        sudo apt-get install -y gcc &&
-        sudo apt-get install -y python3-dev &&
-        sudo apt-get install -y musl-dev
+        sudo apt-get install -y postgresql-server-dev-all gcc python3-dev musl-dev
         echo "install python"
         pip install -r ./requirements.txt --target ./lambda/terraform/module/python
         echo "copy python files in lamda folder"
@@ -143,6 +140,8 @@ jobs:
         echo "all files in shared_db_app python folder"
         ls -l ./lambda/terraform/module/python/
         cd ./lambda/terraform/module/python/ && python -c 'from shared_db_app.migration import migrate; migrate()'
+        echo "migrate successfully"
+        psql -h 0.0.0.0 -U hocvien_dev -d dev_hocvien -p 5432 -c 'SELECT * FROM public.example__author_initial' -w
 #    commented this for testing purpose
 #    - name: Test lambda
 #      working-directory: ./rust-service/lambda
