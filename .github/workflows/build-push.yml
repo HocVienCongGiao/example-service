@@ -70,6 +70,8 @@ jobs:
 
           aws s3 cp target/lambda/release/test1.zip s3://891616054205-ap-southeast-1-aws-lambda/dev-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test1.zip
           aws s3 cp target/lambda/release/test2.zip s3://891616054205-ap-southeast-1-aws-lambda/dev-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test2.zip
+          aws s3 cp target/lambda/release/test3.zip s3://891616054205-ap-southeast-1-aws-lambda/dev-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test3.zip
+          
       - name: Deploy Terraform Config 
         run: |
           chmod +x ./scripts/terraform-enterprise-push.sh
