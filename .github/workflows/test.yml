@@ -82,7 +82,8 @@ jobs:
         working-directory: lambda      
         run: cargo check --all
   test:
-    needs: [codestyle, lint, compile]
+#    commented this for testing purpose
+#    needs: [codestyle, lint, compile]
     runs-on: ubuntu-latest
     services:
       postgres:
