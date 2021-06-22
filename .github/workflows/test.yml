@@ -115,7 +115,9 @@ jobs:
         repository: 'HocVienCongGiao/shared-db-service'
         path: ./db-service
         ref: development
-        token: ${{ secrets.GH_OAUTH_TOKEN }} 
+        token: ${{ secrets.GH_OAUTH_TOKEN }}
+        run: |
+          - echo "ls -l"
     - name: Test lambda
       working-directory: ./rust-service/lambda    
       run: cargo test
