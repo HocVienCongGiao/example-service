@@ -87,9 +87,9 @@ jobs:
       postgres:
         image: postgres:11
         env:
-          POSTGRES_DB: postgres        
-          POSTGRES_PASSWORD: p@ssword
-          POSTGRES_USER: postgres
+          POSTGRES_DB: dev_hocvien        
+          POSTGRES_PASSWORD: 123456
+          POSTGRES_USER: hocvien_dev
         ports:
           - 5432:5432
         # Set health checks to wait until postgres has started
