@@ -117,8 +117,10 @@ jobs:
         path: ./db-service
         ref: development
         token: ${{ secrets.GH_OAUTH_TOKEN }}
-        run: |
-          - echo hello nhut huynh
+    - name: Setup python
+      working-directory: ./db-service
+      run: |
+        - echo hello nhut huynh
 #    commented this for testing purpose
 #    - name: Test lambda
 #      working-directory: ./rust-service/lambda
