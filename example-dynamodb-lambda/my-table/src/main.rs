@@ -10,6 +10,6 @@ async fn main() -> Result<(), Error> {
 
 async fn func(event: Value, _: Context) -> Result<Value, Error> {
     // let first_name = event["firstName"].as_str().unwrap_or("world");
-
+    println!("Event payload is {:?}", event);
     Ok(json!({ "message": format!("Hello, {:?}!", event) }))
 }
