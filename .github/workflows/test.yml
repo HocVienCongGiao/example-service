@@ -89,6 +89,7 @@ jobs:
       postgres:
         image: postgres:11
         env:
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: dev_hocvien        
           POSTGRES_PASSWORD: 123456
           POSTGRES_USER: hocvien_dev
