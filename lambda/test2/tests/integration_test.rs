@@ -3,7 +3,7 @@ use lambda_http::http::header::{
     CONTENT_TYPE,
 };
 use lambda_http::http::HeaderValue;
-use lambda_http::{handler, lambda, Body, Context, IntoResponse, Request, Response};
+use lambda_http::{handler, lambda_runtime, Body, Context, IntoResponse, Request, Response};
 use serde_json::json;
 use test2::test2;
 

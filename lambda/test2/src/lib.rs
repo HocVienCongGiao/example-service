@@ -4,7 +4,7 @@ use lambda_http::http::header::{
     CONTENT_TYPE,
 };
 use lambda_http::http::HeaderValue;
-use lambda_http::{handler, lambda, Body, Context, IntoResponse, Request, Response};
+use lambda_http::{handler, Body, Context, IntoResponse, Request, Response};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 

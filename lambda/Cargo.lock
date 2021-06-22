@@ -604,7 +604,7 @@ dependencies = [
  "serde",
  "serde_ignored",
  "serde_json",
- "serde_urlencoded",
+ "serde_urlencoded 0.6.1",
  "swagger",
  "url",
 ]
@@ -854,7 +854,7 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
- "serde_urlencoded",
+ "serde_urlencoded 0.6.1",
 ]
 
 [[package]]
@@ -869,7 +869,41 @@ dependencies = [
  "serde",
  "serde_derive",
  "serde_json",
- "serde_urlencoded",
+ "serde_urlencoded 0.6.1",
+]
+
+[[package]]
+name = "lambda_http"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "53d2f5bbdf23c5b73faa7fccf8014642f9817a674a09e714511930bd868cbc19"
+dependencies = [
+ "base64 0.13.0",
+ "http",
+ "lambda_runtime",
+ "serde",
+ "serde_json",
+ "serde_urlencoded 0.7.0",
+]
+
+[[package]]
+name = "lambda_runtime"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9b08856997d11ca8122121b26b17a27ef1dce689d71ccd754e051f2417aebdd"
+dependencies = [
+ "async-stream",
+ "bytes 1.0.1",
+ "futures",
+ "http",
+ "hyper 0.14.9",
+ "serde",
+ "serde_json",
+ "tokio 1.6.0",
+ "tokio-stream",
+ "tower-service",
+ "tracing",
+ "tracing-error",
 ]
 
 [[package]]
@@ -1805,6 +1839,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde_urlencoded"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "edfa57a7f8d9c1d260a549e7224100f6c43d43f9103e06dd8b4095a9b2b43ce9"
+dependencies = [
+ "form_urlencoded",
+ "itoa",
+ "ryu",
+ "serde",
+]
+
+[[package]]
 name = "sha2"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1997,7 +2043,7 @@ dependencies = [
  "controller",
  "dotenv",
  "jsonwebtoken",
- "lambda_http 0.2.0-beta.1 (git+https://github.com/coolreader18/aws-lambda-rust-runtime?branch=tokio1)",
+ "lambda_http 0.3.0",
  "serde",
  "serde_json",
  "tokio 1.6.0",
@@ -2132,6 +2178,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "tokio-stream"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f8864d706fdb3cc0843a49647ac892720dac98a6eeb818b77190592cf4994066"
+dependencies = [
+ "futures-core",
+ "pin-project-lite 0.2.6",
+ "tokio 1.6.0",
+]
+
+[[package]]
 name = "tokio-tls"
 version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2188,6 +2245,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "01ebdc2bb4498ab1ab5f5b73c5803825e60199229ccba0698170e3be0e7f959f"
 dependencies = [
  "cfg-if 1.0.0",
+ "log 0.4.8",
  "pin-project-lite 0.2.6",
  "tracing-attributes",
  "tracing-core",
