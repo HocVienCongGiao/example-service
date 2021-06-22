@@ -869,6 +869,7 @@ dependencies = [
  "lambda_runtime",
  "rusoto_cognito_idp",
  "rusoto_core",
+ "serde_json",
  "tokio 1.7.1",
 ]
 
