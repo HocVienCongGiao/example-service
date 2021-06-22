@@ -120,10 +120,8 @@ jobs:
     - name: Setup python
       working-directory: ./db-service
       run: |
-        echo "List folders"
-        ls -l
-        echo "check python"
-        pip list
+        echo "prepare"
+        apk update && apk add postgresql-dev gcc python3-dev musl-dev
         echo "install python"
         pip install -r ./requirements.txt --target ./lambda/terraform/module/python
         echo "copy python files in lamda folder"
@@ -132,7 +130,9 @@ jobs:
         cp -R ./shared_db_app ./lambda/terraform/module/python/
         echo "copy python files in shared_db_app folder"
         cp -R ./migrations ./lambda/terraform/module/python/
+        echo "all files in shared_db_app python folder"
         ls -l ./lambda/terraform/module/python/
+        cd ./lambda/terraform/module/python/ && python -c 'from shared_db_app.migration import migrate; migrate()'
 #    commented this for testing purpose
 #    - name: Test lambda
 #      working-directory: ./rust-service/lambda
