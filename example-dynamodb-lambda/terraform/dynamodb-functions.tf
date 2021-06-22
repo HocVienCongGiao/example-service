@@ -4,6 +4,7 @@ module "MyTable" {
 
   function_name = "my-table"
   table_name    = "MyTable"
+  is_in_vpc     = false
 
   environment = var.environment
   db_host              = var.db_host
