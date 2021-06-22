@@ -121,7 +121,11 @@ jobs:
       working-directory: ./db-service
       run: |
         echo "prepare"
-        apk update && apk add postgresql-dev gcc python3-dev musl-dev
+        apt-get update -y &&
+        apt-get install -y postgresql-server-dev-all &&
+        apt-get install -y gcc &&
+        apt-get install -y python3-dev &&
+        apt-get install -y musl-dev
         echo "install python"
         pip install -r ./requirements.txt --target ./lambda/terraform/module/python
         echo "copy python files in lamda folder"
