@@ -18,6 +18,11 @@ jobs:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       SLS_DOCKER_ARGS: -v  /home/runner/work/example-service/example-service/example-app:/example-app
     steps:
+      - name: Install Musl-gcc
+        run: |
+          sudo apt update -y
+          sudo apt install -y musl-tools
+          
       - name: Set up Rust
         uses: hecrj/setup-rust-action@v1
         with:
