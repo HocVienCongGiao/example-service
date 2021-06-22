@@ -6,7 +6,7 @@ edition = "2018"
 [dependencies]
 tokio = { version = "1", features = ["macros"] }
 #lambda_http = { git = "https://github.com/coolreader18/aws-lambda-rust-runtime", branch = "tokio1"}
-lambda_http = { git = "https://github.com/awslabs/aws-lambda-rust-runtime/", branch = "master" }
+lambda_http = "0.3.0"
 
 serde_json = "1.0"
 controller = { path = "../../example-app/controller" }
