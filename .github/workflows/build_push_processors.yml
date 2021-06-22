@@ -41,8 +41,10 @@ jobs:
       - name: Build and Push for Dev
         working-directory: example-dynamodb-lambda
         run: |
-          cargo build --release --target x86_64-unknown-linux-musl 
-          ls -Ral
+          cargo build --release --target x86_64-unknown-linux-musl          
+          cp ./target/x86_64-unknown-linux-musl/release/my-table ./bootstrap && zip my-table.zip bootstrap && rm bootstrap
+          aws s3 cp ./my-table.zip s3://891616054205-ap-southeast-1-aws-lambda/prod-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/dynamodb/my-table.zip
+
 
       - name: Deploy Terraform Config 
         run: |
