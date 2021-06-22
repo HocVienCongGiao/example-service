@@ -120,10 +120,10 @@ jobs:
     - name: Setup python
       working-directory: ./db-service
       env:
-        DB_USER: hocvien_dev
         DB_NAME: dev_hocvien
         DB_PASSWORD: 123456
-        DB_HOST: db
+        DB_USER: hocvien_dev
+        DB_HOST: postgres
       run: |
         echo "prepare"
         sudo apt-get update -y &&
