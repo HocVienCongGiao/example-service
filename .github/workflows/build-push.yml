@@ -55,9 +55,8 @@ jobs:
       - name: Install Musl-gcc
         run: |
           sudo apt update -y
-          sudo apt install -y libssl-dev
-          sudo apt install -y pkg-config
           sudo apt install -y musl-tools
+          sudo apt install -y pkg-config libssl-dev
 
       - name: Set up Rust
         uses: hecrj/setup-rust-action@v1
