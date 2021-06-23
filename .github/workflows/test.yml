@@ -6,6 +6,7 @@ on:
       - test-processor
       - dev
       - prod
+      - feature/apply_cargo_build_on_push_dev
 env:
   CARGO_TERM_COLOR: always
 
