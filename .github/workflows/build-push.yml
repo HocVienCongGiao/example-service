@@ -55,6 +55,8 @@ jobs:
       - name: Install Musl-gcc
         run: |
           sudo apt update -y
+          sudo apt install -y libssl-dev
+          apt install -y pkg-config
           sudo apt install -y musl-tools
 
       - name: Set up Rust
