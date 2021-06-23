@@ -56,8 +56,8 @@ jobs:
         run: |
           sudo apt update -y
           sudo apt install -y musl-tools
+          sudp apt-get install -y openssl
           sudo apt install -y pkg-config libssl-dev
-
       - name: Set up Rust
         uses: hecrj/setup-rust-action@v1
         with:
