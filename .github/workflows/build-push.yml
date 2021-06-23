@@ -45,8 +45,7 @@ jobs:
   # deploy on pushes to master branch
   # assumes aws credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) are set in github secrets
   push_dev:
-    if: github.ref == 'refs/heads/feature/apply_cargo_build_on_push_dev'
-#    if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
@@ -92,15 +91,24 @@ jobs:
           ./scripts/terraform-enterprise-push.sh lambda/terraform HocVienCongGiao/dev-sg-lambda-services-hvcg-example-service
 
   push_prod:
-    if: github.ref == 'refs/heads/prod'
+    if: github.ref == 'refs/heads/feature/apply_cargo_build_on_push_dev'
+#    if: github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       SLS_DOCKER_ARGS: -v  /home/runner/work/example-service/example-service/example-app:/example-app
 
     steps:
+      - name: Install Musl-gcc
+        run: |
+          sudo apt update -y
+          sudo apt install -y musl-tools
+
       - name: Set up Rust
         uses: hecrj/setup-rust-action@v1
+        with:
+          targets: x86_64-unknown-linux-musl
+
       - name: Checkout
         uses: actions/checkout@v2
         
@@ -117,9 +125,6 @@ jobs:
           cargo build --release --target x86_64-unknown-linux-musl
           cp ./target/x86_64-unknown-linux-musl/release/test1 ./bootstrap && zip test1.zip bootstrap
           cp ./target/x86_64-unknown-linux-musl/release/test2 ./bootstrap && zip test2.zip bootstrap
-          pwd
-          ls -l
-          rm bootstrap
 
           aws s3 cp ./test1.zip s3://891616054205-ap-southeast-1-aws-lambda/prod-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test1.zip
           aws s3 cp ./test2.zip s3://891616054205-ap-southeast-1-aws-lambda/prod-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test2.zip
