@@ -92,7 +92,7 @@ jobs:
           export PKG_CONFIG_ALLOW_CROSS=1
           export OPENSSL_STATIC=true
           export OPENSSL_DIR=/musl
-          cd /home/runner/work/identity-service/identity-service/identity-lambda
+          cd /home/runner/work/example-service/example-service/lambda
           cargo build --release --target x86_64-unknown-linux-musl
           cp ./target/x86_64-unknown-linux-musl/release/test1 ./bootstrap && zip test1.zip bootstrap
           cp ./target/x86_64-unknown-linux-musl/release/test2 ./bootstrap && zip test2.zip bootstrap
@@ -156,7 +156,7 @@ jobs:
           export PKG_CONFIG_ALLOW_CROSS=1
           export OPENSSL_STATIC=true
           export OPENSSL_DIR=/musl
-          cd /home/runner/work/identity-service/identity-service/identity-lambda
+          cd /home/runner/work/example-service/example-service/lambda
           cargo build --release --target x86_64-unknown-linux-musl
           cp ./target/x86_64-unknown-linux-musl/release/test1 ./bootstrap && zip test1.zip bootstrap
           cp ./target/x86_64-unknown-linux-musl/release/test2 ./bootstrap && zip test2.zip bootstrap
