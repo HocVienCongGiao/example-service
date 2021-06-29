@@ -21,6 +21,7 @@ module "test2_id" {
   service_name = var.service_name
   query_api_parent_id = module.test2.query_api_gateway_resource_id
   mutation_api_parent_id = module.test2.mutation_api_gateway_resource_id
+  is_auth_required = false
     
   function_name = "test2_id"
   file_name     = "test2"
