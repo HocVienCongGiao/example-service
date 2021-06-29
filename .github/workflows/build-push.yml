@@ -5,7 +5,7 @@ on:
     branches:
       - dev
       - prod
-      - feature/fix_open_ssl_in_deployement
+      - update_tf
 env:
   CARGO_TERM_COLOR: always
 
@@ -45,7 +45,7 @@ jobs:
   # deploy on pushes to master branch
   # assumes aws credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) are set in github secrets
   push_dev:
-    if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/update_tf'
 #     if: github.ref == 'refs/heads/feature/fix_open_ssl_in_deployement'
     runs-on: ubuntu-latest
     env:
