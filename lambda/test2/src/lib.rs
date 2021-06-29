@@ -49,6 +49,7 @@ pub async fn test2(req: Request, ctx: Context) -> Result<impl IntoResponse, Erro
     let auth_header_str = auth_header_value.to_str().unwrap();
     let username: String;
     let groups: Vec<String>;
+    println!("Request {:?}", req);    
     if (auth_header_str != "anonymous12") {
         let jwt_token = &auth_header_str.to_string()[7..];
         let token_data: TokenData<TokenPayload> =
