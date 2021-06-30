@@ -25,7 +25,7 @@ module "test2_id" {
     
   function_name = "test2_id"
   file_name     = "test2"
-  path_part     = "no-idea"
+  path_part     = "{id}"
   depends_on = [
     module.example-service
    ]
