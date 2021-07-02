@@ -5,7 +5,6 @@ on:
     branches:
       - dev
       - prod
-      - feature/fix_open_ssl_in_deployement
 env:
   CARGO_TERM_COLOR: always
 
@@ -46,7 +45,6 @@ jobs:
   # assumes aws credentials (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) are set in github secrets
   push_dev:
     if: github.ref == 'refs/heads/dev'
-#     if: github.ref == 'refs/heads/feature/fix_open_ssl_in_deployement'
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
@@ -108,8 +106,7 @@ jobs:
           ./scripts/terraform-enterprise-push.sh lambda/terraform HocVienCongGiao/dev-sg-lambda-services-hvcg-example-service
 
   push_prod:
-#    if: github.ref == 'refs/heads/prod'
-    if: github.ref == 'refs/heads/feature/fix_open_ssl_in_deployement'
+    if: github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
