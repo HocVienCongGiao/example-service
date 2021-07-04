@@ -46,6 +46,7 @@ module "test3" {
   depends_on = [
     module.example-service
    ]
+   
 
   environment = var.environment
   db_host              = var.db_host
