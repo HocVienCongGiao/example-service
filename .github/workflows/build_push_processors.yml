@@ -50,3 +50,4 @@ jobs:
         run: |
           chmod +x ./scripts/terraform-enterprise-push.sh
           ./scripts/terraform-enterprise-push.sh example-dynamodb-lambda/terraform HocVienCongGiao/dev-sg-lambda-processors-dynamodb-example-service
+  
