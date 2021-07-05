@@ -157,9 +157,11 @@ jobs:
           cargo build --release --target x86_64-unknown-linux-musl
           cp ./target/x86_64-unknown-linux-musl/release/test1 ./bootstrap && zip test1.zip bootstrap
           cp ./target/x86_64-unknown-linux-musl/release/test2 ./bootstrap && zip test2.zip bootstrap
-
+          cp ./target/x86_64-unknown-linux-musl/release/test3 ./bootstrap && zip test3.zip bootstrap
+          rm bootstrap
           aws s3 cp ./test1.zip s3://891616054205-ap-southeast-1-aws-lambda/prod-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test1.zip
           aws s3 cp ./test2.zip s3://891616054205-ap-southeast-1-aws-lambda/prod-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test2.zip
+          aws s3 cp ./test3.zip s3://891616054205-ap-southeast-1-aws-lambda/dev-sg-hocvienconggiao/${{ github.event.repository.name }}/latest/test3.zip
       - name: Deploy Terraform Config
         run: |
           chmod +x ./scripts/terraform-enterprise-push.sh
