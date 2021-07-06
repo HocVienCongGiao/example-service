@@ -46,11 +46,12 @@ module "test3" {
   depends_on = [
     module.example-service
    ]
-   
+
 
   environment = var.environment
   db_host              = var.db_host
   db_user              = var.db_user
   db_password          = var.db_password
   db_name              = var.db_name
+  
 }
