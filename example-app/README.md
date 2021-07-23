@@ -1,1 +1,1 @@
---all-targets -- -D clippy::all
+--all-targets -- -D clippy::all. trigger
