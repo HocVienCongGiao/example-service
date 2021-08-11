@@ -26,7 +26,7 @@ module "test2_id" {
   file_name     = "test2"
   path_part     = "{id}"
   depends_on = [
-    module.example-service
+    module.test2
    ]
     
   environment = var.environment
@@ -42,11 +42,11 @@ module "test2_id_sub" {
   query_api_parent_id = module.test2_id.query_api_gateway_resource_id
   mutation_api_parent_id = module.test2_id.mutation_api_gateway_resource_id
     
-  function_name = "test2_id"
+  function_name = "test2_id_sub"
   file_name     = "test2"
   path_part     = "sub"
   depends_on = [
-    module.example-service
+    module.test2_id
    ]
     
   environment = var.environment
