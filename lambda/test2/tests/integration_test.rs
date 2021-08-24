@@ -29,7 +29,7 @@ async fn integration_works() {
     println!("is it working?");
     let request = Request::default();
     let expected = json!(
-        {"name":"No Name for status 200","photoUrls":[],"status":"200"}
+        {"name":"Bao Quy Huynh","photoUrls":[],"status":"200"}
     )
     .into_response();
     let response = test2::test2(request, Context::default())
