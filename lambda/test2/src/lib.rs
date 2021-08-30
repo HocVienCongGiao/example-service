@@ -4,9 +4,10 @@ use lambda_http::http::header::{
     CONTENT_TYPE,
 };
 use lambda_http::http::HeaderValue;
-use lambda_http::{handler, Body, Context, IntoResponse, Request, Response};
+use lambda_http::{handler, Body, Context, IntoResponse, Request, Response, RequestExt};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use controller::openapi::test1::Pet;
 
 type Error = Box<dyn std::error::Error + Sync + Send + 'static>;
 
@@ -73,6 +74,12 @@ pub async fn test2(req: Request, ctx: Context) -> Result<impl IntoResponse, Erro
             "message": "Test 2 20210616 is me, how are you?"
         }
     );
+
+    if let Some(payload) = req.payload().unwrap_or(None) {
+        let pet: Pet = payload;
+        println!("Payload found Pet {}", pet.name)
+    }
+
     let test1Response = controller::get_pet().await;
     let response: Response<Body> = Response::builder()
         .header(CONTENT_TYPE, "application/json")
