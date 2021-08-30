@@ -80,6 +80,8 @@ pub async fn test2(req: Request, ctx: Context) -> Result<impl IntoResponse, Erro
         println!("Payload found Pet {}", pet.name)
     }
 
+    println!("APP_ENV is {}", env!("APP_ENV").to_string());
+
     let test1Response = controller::get_pet().await;
     let response: Response<Body> = Response::builder()
         .header(CONTENT_TYPE, "application/json")
