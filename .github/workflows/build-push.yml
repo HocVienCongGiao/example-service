@@ -49,6 +49,7 @@ jobs:
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       SLS_DOCKER_ARGS: -v  /home/runner/work/example-service/example-service/example-app:/example-app
+      APP_ENV: dev-sg
     steps:
       - name: Install Musl-gcc
         run: |
@@ -111,6 +112,7 @@ jobs:
     env:
       TFE_TOKEN: ${{ secrets.TFE_TOKEN }}
       SLS_DOCKER_ARGS: -v  /home/runner/work/example-service/example-service/example-app:/example-app
+      APP_ENV: prod-sg
 
     steps:
       - name: Install Musl-gcc
